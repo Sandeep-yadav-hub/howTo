@@ -2,7 +2,7 @@
 
 
 
-Include these line at the bottom of your html file
+Include the wizard.js file at the bottom of your html file
 ```HTML
 <script src="../../wizard.js"></script>
 ```
