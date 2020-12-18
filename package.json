@@ -1,5 +1,5 @@
 {
-  "name": "how-to",
+  "name": "howtodo",
   "version": "1.0.0",
   "description": " this package will give the ability to add instruction to fill form easy",
   "main": "index.js",
@@ -10,5 +10,5 @@
   "author": "",
   "license": "ISC",
   "dependencies": {},
-  "homepage": "https://github.com/cfaddict/wrap-with-poo"
+  "homepage": "https://github.com/Sandeep-yadav-hub/howTo.git"
 }
