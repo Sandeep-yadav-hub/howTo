@@ -1,7 +1,9 @@
-class Wizard {
-  constructor(array, id,interval) {
-    if(!array||!id){
-      console.log(`"listOfInstruction":${array},"helpId":${id},"interval":${interval}`)
+class howToDoWizard {
+  constructor(array, id, interval) {
+    if (!array || !id) {
+      console.log(
+        `"listOfInstruction":${array},"helpId":${id},"interval":${interval}`
+      );
     }
     this.array = array;
     this.timeOut = interval;
@@ -11,15 +13,14 @@ class Wizard {
     this.instructions;
     this.text;
   }
-  
-  
+
   play() {
     this.instructions = this.array[this.id];
     for (var j = 0; j < this.instructions.instruction.length; j++) {
       var eleid = this.instructions.instruction[j].id;
       document.getElementById(eleid).placeholder = "";
     }
-    const instructions = JSON.stringify(this.array[this.id].instruction)
+    const instructions = JSON.stringify(this.array[this.id].instruction);
     this.text = this.instructions.instruction[this.step].step;
     var eleId = this.instructions.instruction[this.step].id;
     var example = this.instructions.instruction[this.step].example;
@@ -33,18 +34,20 @@ class Wizard {
       }
     }
     typeWriter();
-    
+
     const clear = document.getElementById("instructionsModal");
     clear.innerHTML = "";
-    var elementId =  this.instructions.instruction[this.step].id;
+    var elementId = this.instructions.instruction[this.step].id;
     var elementPositionTop = document.getElementById(elementId).offsetTop;
     var elementPositionLeft = document.getElementById(elementId).offsetLeft;
     var getElement = document.getElementById(elementId);
     document.getElementById(elementId);
     var getElement_width = getElement.offsetWidth;
     var widgetWindow = document.getElementById("instructionsModal");
-    widgetWindow.style.top = String(Number(elementPositionTop + 15))+"px";
-    widgetWindow.style.left = String(Number(elementPositionLeft) + Number(getElement_width) + 45) + "px";
+    widgetWindow.style.top = String(Number(elementPositionTop + 15)) + "px";
+    widgetWindow.style.left =
+      String(Number(elementPositionLeft) + Number(getElement_width) + 45) +
+      "px";
     widgetWindow.style.maxWidth = "400px";
     widgetWindow.style.minHeight = "50px";
     widgetWindow.style.background = "#7b97db";
@@ -155,8 +158,6 @@ class Wizard {
             });
     </script>`;
     $("#instructionsModal").append(divElement);
-    
-    
-    }
+  }
 };
 module.exports(Wizard);
