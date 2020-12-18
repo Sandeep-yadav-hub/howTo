@@ -26,6 +26,7 @@ class howToDoWizard {
     var example = this.instructions.instruction[this.step].example;
     var i = 0;
     var speed = 100;
+    document.getElementById(eleId).placeholder = "";
     function typeWriter() {
       if (i < example.length) {
         document.getElementById(eleId).placeholder += example.charAt(i);
@@ -33,7 +34,9 @@ class howToDoWizard {
         setTimeout(typeWriter, speed);
       }
     }
-    typeWriter();
+    if (example != undefined) {
+      typeWriter();
+    }
 
     const clear = document.getElementById("instructionsModal");
     clear.innerHTML = "";
@@ -74,7 +77,7 @@ class howToDoWizard {
         <p id="closeInstWindow" style="margin-bottom: 0;margin-bottom: 0;position: absolute;color: #FFF;right: 14px;cursor: pointer;">x</p>
         <p class=" instructionText" style="margin-bottom:0 ;padding: 1.5rem;font-size: 18px;color:#fff">${this.text}</p>
         <div  style="display: flex;justify-content: space-between;">
-            <p style="margin-bottom:0 ;padding: 1.5rem;text-align: right;font-size: 14px;color: #fff; cursor: pointer;">Back</p>
+            <p id="backStep" style="margin-bottom:0 ;padding: 1.5rem;text-align: right;font-size: 14px;color: #fff; cursor: pointer;">Back</p>
             <p id="nextStep" class="" style="margin-bottom:0 ;padding: 1.5rem;text-align: right;font-size: 14px;color: #fff; cursor: pointer;">Next</p>
         </div>
     </div>
@@ -83,6 +86,7 @@ class howToDoWizard {
             var strLi = JSON.stringify(${instructions})
             var li = JSON.parse(strLi)
             var step = ${this.step}
+            console.log(step,"at loading")
             var timeOut = ${this.timeOut}
             var i = 0
             var speed = 100
@@ -106,34 +110,63 @@ class howToDoWizard {
               }
               clear.innerHTML = "";
             });
-
-            
-
+            document.getElementById("backStep").addEventListener("click",function(){
+              step=step-1
+              if(step>=0){
+                var liInst = li[step]
+                var instructionText = document.querySelector(".instructionText")
+                instructionText.innerHTML = liInst.step
+                moveWidget(liInst.id)
+                var eleId = liInst.id;
+                var example = liInst.example;
+                document.getElementById(eleId).placeholder = ""
+                var s = 0
+                function typeWriter() {
+                  if (s < example.length) {
+                    document.getElementById(eleId).placeholder += example.charAt(s);
+                    s++;
+                    setTimeout(typeWriter, speed);
+                  }
+                }
+                if(example!=undefined){
+                        typeWriter()
+                }
+              }
+            })
             document.getElementById("nextStep").addEventListener("click",function(){
+
               var preStep = document.getElementById("nextStep").dataset.prestepid
                   console.log(preStep)
-                if(step !=0){
-
-                  if(step>=li.length){
+                if(step >0){
+                  if(step>=li.length-1){
                     document.getElementById("instructionsModal").style.display = "none"
                     document.getElementById("instructionsModal").innerHTML = ""
                     
                   }else{
                     step = step+1
+                    if(step+1 >= li.length-1){
+                      document.getElementById("nextStep").innerHTML = "Done"
+                    }else{
+                      document.getElementById("nextStep").innerHTML = "Next"
+                    }
                     var liInst = li[step]
                     var instructionText = document.querySelector(".instructionText")
                     instructionText.innerHTML = liInst.step
                     moveWidget(liInst.id)
                     var eleId = liInst.id;
                     var example = liInst.example;
+                    document.getElementById(eleId).placeholder = ""
+                    var s = 0
                     function typeWriter() {
-                      if (i < example.length) {
-                        document.getElementById(eleId).placeholder += example.charAt(i);
-                        i++;
+                      if (s < example.length) {
+                        document.getElementById(eleId).placeholder += example.charAt(s);
+                        s++;
                         setTimeout(typeWriter, speed);
                       }
                     }
-                    typeWriter()
+                    if(example!=undefined){
+                      typeWriter()
+                    }
                   }
                 }else{
                   step = step+1
@@ -144,14 +177,18 @@ class howToDoWizard {
                   moveWidget(liInst.id) 
                   var eleId = liInst.id;
                   var example = liInst.example;
+                  document.getElementById(eleId).placeholder = ""
+                  var s = 0
                   function typeWriter() {
-                    if (i < example.length) {
-                      document.getElementById(eleId).placeholder += example.charAt(i);
-                      i++;
+                    if (s < example.length) {
+                      document.getElementById(eleId).placeholder += example.charAt(s);
+                      s++;
                       setTimeout(typeWriter, speed);
                     }
                   }
-                  typeWriter()
+                  if(example!=undefined){
+                      typeWriter()
+                    }
                   
                 }
                 
@@ -159,5 +196,5 @@ class howToDoWizard {
     </script>`;
     $("#instructionsModal").append(divElement);
   }
-};
+}
 module.exports(Wizard);
