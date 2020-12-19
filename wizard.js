@@ -15,42 +15,59 @@ class howToDoWizard {
   }
 
   play() {
+    // just to make sure it is empty to inster NEW DOM elements
+    const clear = document.getElementById("instructionsModal");
+    clear.innerHTML = "";
+
     this.instructions = this.array[this.id];
+    var eleId = this.instructions.instruction[this.step].id;
+    var currentInstructionElement = document.getElementById(eleId);
+    console.log(currentInstructionElement);
+
+    const instructions = JSON.stringify(this.array[this.id].instruction);
+
+    this.text = this.instructions.instruction[this.step].step;
+    var example = this.instructions.instruction[this.step].example;
+    var i = 0;
+    var typeWriterSpeed = 100;
+
+    // clear placeholder before initiating the instruction
     for (var j = 0; j < this.instructions.instruction.length; j++) {
       var eleid = this.instructions.instruction[j].id;
       document.getElementById(eleid).placeholder = "";
     }
-    const instructions = JSON.stringify(this.array[this.id].instruction);
-    this.text = this.instructions.instruction[this.step].step;
-    var eleId = this.instructions.instruction[this.step].id;
-    var example = this.instructions.instruction[this.step].example;
-    var i = 0;
-    var speed = 100;
-    document.getElementById(eleId).placeholder = "";
+    // typeWriter() gives typing Effect for the example
     function typeWriter() {
       if (i < example.length) {
         document.getElementById(eleId).placeholder += example.charAt(i);
         i++;
-        setTimeout(typeWriter, speed);
+        setTimeout(typeWriter, typeWriterSpeed);
       }
     }
+    // checking before initializing typeWriter
     if (example != undefined) {
       typeWriter();
     }
 
-    const clear = document.getElementById("instructionsModal");
-    clear.innerHTML = "";
     var elementId = this.instructions.instruction[this.step].id;
+    // getting the position to put the instruction at
     var elementPositionTop = document.getElementById(elementId).offsetTop;
     var elementPositionLeft = document.getElementById(elementId).offsetLeft;
     var getElement = document.getElementById(elementId);
-    document.getElementById(elementId);
+
+    // getting the width the put the instruction window at a suitable distance
     var getElement_width = getElement.offsetWidth;
+
+    // get the div to put html code
     var widgetWindow = document.getElementById("instructionsModal");
+
+    // positioning the window
     widgetWindow.style.top = String(Number(elementPositionTop + 15)) + "px";
     widgetWindow.style.left =
       String(Number(elementPositionLeft) + Number(getElement_width) + 45) +
       "px";
+
+    // styling the window
     widgetWindow.style.maxWidth = "400px";
     widgetWindow.style.minHeight = "50px";
     widgetWindow.style.background = "#7b97db";
@@ -59,6 +76,8 @@ class howToDoWizard {
     widgetWindow.style.position = "absolute";
     widgetWindow.style.display = "grid";
     widgetWindow.style.boxShadow = "0px 0px 5px #999";
+
+    // html code to put in window
     var divElement = `
     <style>
         .boxEdgeInstWidget {
@@ -82,14 +101,22 @@ class howToDoWizard {
         </div>
     </div>
         <script>
-        
+            // strigifing the list (jugad)
             var strLi = JSON.stringify(${instructions})
+
+            // parsing 
             var li = JSON.parse(strLi)
+
+            // getting the current step into the script and saving into a var
             var step = ${this.step}
-            console.log(step,"at loading")
+
+            // interval for the autoplay steps
             var timeOut = ${this.timeOut}
             var i = 0
-            var speed = 100
+
+            var typeWriterSpeed = 100
+
+            // for moving the window widget to its place
             function moveWidget(elementId){
               var elementId = elementId
               var elementPositionTop = document.getElementById(elementId).offsetTop
@@ -102,6 +129,7 @@ class howToDoWizard {
               instructionsModal.style.top = String(Number(elementPositionTop)+15)+"px"
               instructionsModal.style.left = String(Number(elementPositionLeft) + Number(getElement_width) +45)+"px"
             }
+            // for closing the instruction window
             document.getElementById("closeInstWindow").addEventListener("click",function(){
               var clear = document.getElementById("instructionsModal");
               for (var j = 0; j < li.length; j++) {
@@ -110,8 +138,13 @@ class howToDoWizard {
               }
               clear.innerHTML = "";
             });
+
+            // going back a step
             document.getElementById("backStep").addEventListener("click",function(){
+              // decrease a step
               step=step-1
+
+              // checking if the step is not less then 0 (the first instruction)
               if(step>=0){
                 var liInst = li[step]
                 var instructionText = document.querySelector(".instructionText")
@@ -125,7 +158,7 @@ class howToDoWizard {
                   if (s < example.length) {
                     document.getElementById(eleId).placeholder += example.charAt(s);
                     s++;
-                    setTimeout(typeWriter, speed);
+                    setTimeout(typeWriter, typeWriterSpeed);
                   }
                 }
                 
@@ -135,11 +168,16 @@ class howToDoWizard {
                 }
               }
             })
+
+            // going to next step
             document.getElementById("nextStep").addEventListener("click",function(){
 
-              var preStep = document.getElementById("nextStep").dataset.prestepid
-                  console.log(preStep)
+                var preStep = document.getElementById("nextStep").dataset.prestepid
+                console.log(preStep)
+                
+                // checking if it is not 0 or less
                 if(step >0){
+                  // checking if it is the the last step to clear and remove the instruction window
                   if(step>=li.length-1){
                     document.getElementById("instructionsModal").style.display = "none"
                     document.getElementById("instructionsModal").innerHTML = ""
@@ -163,7 +201,7 @@ class howToDoWizard {
                       if (s < example.length) {
                         document.getElementById(eleId).placeholder += example.charAt(s);
                         s++;
-                        setTimeout(typeWriter, speed);
+                        setTimeout(typeWriter, typeWriterSpeed);
                       }
                     }
                     if(example!=undefined){
@@ -185,7 +223,7 @@ class howToDoWizard {
                     if (s < example.length) {
                       document.getElementById(eleId).placeholder += example.charAt(s);
                       s++;
-                      setTimeout(typeWriter, speed);
+                      setTimeout(typeWriter, typeWriterSpeed);
                     }
                   }
                   if(example!=undefined){
