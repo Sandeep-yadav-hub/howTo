@@ -36,12 +36,34 @@ class howToDoWizard {
       var eleid = this.instructions.instruction[j].id;
       document.getElementById(eleid).placeholder = "";
     }
+    console.log(this.instructions.instruction[this.step]);
     // typeWriter() gives typing Effect for the example
     function typeWriter() {
-      if (i < example.length) {
-        document.getElementById(eleId).placeholder += example.charAt(i);
-        i++;
-        setTimeout(typeWriter, typeWriterSpeed);
+      if (example.placeholder && !example.imageUrl) {
+        if (i < example.placeholder.length) {
+          document.getElementById(
+            eleId
+          ).placeholder += example.placeholder.charAt(i);
+          i++;
+          setTimeout(typeWriter, typeWriterSpeed);
+        }
+      } else if (example.imageUrl && !example.placeholder) {
+        setTimeout(() => {
+          var getEleToInstertImg = document.querySelector(".instructionImg");
+          getEleToInstertImg.src = example.imageUrl;
+        }, 2000);
+      } else if (example.imageUrl && example.placeholder) {
+        if (i < example.placeholder.length) {
+          document.getElementById(
+            eleId
+          ).placeholder += example.placeholder.charAt(i);
+          i++;
+          setTimeout(typeWriter, typeWriterSpeed);
+        }
+        setTimeout(() => {
+          var getEleToInstertImg = document.querySelector(".instructionImg");
+          getEleToInstertImg.src = example.imageUrl;
+        }, 2000);
       }
     }
     // checking before initializing typeWriter
@@ -94,7 +116,8 @@ class howToDoWizard {
     <div class="boxEdgeInstWidget"></div>
     <div>
         <p id="closeInstWindow" style="margin-bottom: 0;margin-bottom: 0;position: absolute;color: #FFF;right: 14px;cursor: pointer;">x</p>
-        <p class=" instructionText" style="margin-bottom:0 ;padding: 1.5rem;font-size: 18px;color:#fff">${this.text}</p>
+        <p class=" instructionText" style="margin-bottom:0 ;padding: 1.5rem;font-size: 18px;color:#fff;max-width:100%;" >${this.text}</p>
+        <img class="instructionImg" src="" alt="" style="max-width:100%">
         <div  style="display: flex;justify-content: space-between;">
             <p id="backStep" style="margin-bottom:0 ;padding: 1.5rem;text-align: right;font-size: 14px;color: #fff; cursor: pointer;">Back</p>
             <p id="nextStep" class="" style="margin-bottom:0 ;padding: 1.5rem;text-align: right;font-size: 14px;color: #fff; cursor: pointer;">Next</p>
@@ -155,12 +178,21 @@ class howToDoWizard {
                 document.getElementById(eleId).placeholder = ""
                 var s = 0
                 function typeWriter() {
-                  if (s < example.length) {
-                    document.getElementById(eleId).placeholder += example.charAt(s);
-                    s++;
-                    setTimeout(typeWriter, typeWriterSpeed);
-                  }
-                }
+                      if (example.placeholder && !example.imageUrl) {
+                          var getEleToInstertImg = document.querySelector(".instructionImg");
+                          getEleToInstertImg.src = ""
+                        if (s < example.placeholder.length) {
+                            document.getElementById(eleId).placeholder += example.placeholder.charAt(s);
+                            s++;
+                            setTimeout(typeWriter, typeWriterSpeed);
+                        }
+                      }else if(example.imageUrl){
+                        setTimeout(() => {
+                          var getEleToInstertImg = document.querySelector(".instructionImg");
+                          getEleToInstertImg.src = example.imageUrl
+                        }, 2000);
+                      }
+                    }
                 
                 document.getElementById("nextStep").innerHTML = "Next"
                 if(example!=undefined){
@@ -197,11 +229,21 @@ class howToDoWizard {
                     var example = liInst.example;
                     document.getElementById(eleId).placeholder = ""
                     var s = 0
+
                     function typeWriter() {
-                      if (s < example.length) {
-                        document.getElementById(eleId).placeholder += example.charAt(s);
-                        s++;
-                        setTimeout(typeWriter, typeWriterSpeed);
+                      if (example.placeholder && !example.imageUrl) {
+                          var getEleToInstertImg = document.querySelector(".instructionImg");
+                          getEleToInstertImg.src = ""
+                        if (s < example.placeholder.length) {
+                            document.getElementById(eleId).placeholder += example.placeholder.charAt(s);
+                            s++;
+                            setTimeout(typeWriter, typeWriterSpeed);
+                        }
+                      }else if(example.imageUrl){
+                        setTimeout(() => {
+                          var getEleToInstertImg = document.querySelector(".instructionImg");
+                          getEleToInstertImg.src = example.imageUrl
+                        }, 2000);
                       }
                     }
                     if(example!=undefined){
@@ -220,12 +262,21 @@ class howToDoWizard {
                   document.getElementById(eleId).placeholder = ""
                   var s = 0
                   function typeWriter() {
-                    if (s < example.length) {
-                      document.getElementById(eleId).placeholder += example.charAt(s);
-                      s++;
-                      setTimeout(typeWriter, typeWriterSpeed);
+                      if (example.placeholder && !example.imageUrl) {
+                          var getEleToInstertImg = document.querySelector(".instructionImg");
+                          getEleToInstertImg.src = ""
+                        if (s < example.placeholder.length) {
+                            document.getElementById(eleId).placeholder += example.placeholder.charAt(s);
+                            s++;
+                            setTimeout(typeWriter, typeWriterSpeed);
+                        }
+                      }else if(example.imageUrl){
+                        setTimeout(() => {
+                          var getEleToInstertImg = document.querySelector(".instructionImg");
+                          getEleToInstertImg.src = example.imageUrl
+                        }, 2000);
+                      }
                     }
-                  }
                   if(example!=undefined){
                       typeWriter()
                     }
@@ -234,6 +285,7 @@ class howToDoWizard {
                 
             });
     </script>`;
+    // document.getElementById("instructionsModal").innerHTML = divElement
     $("#instructionsModal").append(divElement);
   }
 }
