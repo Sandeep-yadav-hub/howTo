@@ -61,7 +61,7 @@ class howToDoWizard {
     widgetWindow.style.boxShadow = "0px 0px 5px #999";
     var divElement = `
     <style>
-        .boxEdge {
+        .boxEdgeInstWidget {
             position: absolute;
             left: -44px;
             width: 0;
@@ -72,7 +72,7 @@ class howToDoWizard {
             z-index: -1;
         }
     </style>
-    <div class="boxEdge"></div>
+    <div class="boxEdgeInstWidget"></div>
     <div>
         <p id="closeInstWindow" style="margin-bottom: 0;margin-bottom: 0;position: absolute;color: #FFF;right: 14px;cursor: pointer;">x</p>
         <p class=" instructionText" style="margin-bottom:0 ;padding: 1.5rem;font-size: 18px;color:#fff">${this.text}</p>
@@ -128,8 +128,10 @@ class howToDoWizard {
                     setTimeout(typeWriter, speed);
                   }
                 }
+                
+                document.getElementById("nextStep").innerHTML = "Next"
                 if(example!=undefined){
-                        typeWriter()
+                    typeWriter()
                 }
               }
             })
