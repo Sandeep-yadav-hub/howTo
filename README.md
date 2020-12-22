@@ -1,7 +1,5 @@
 # howtodo
 
-
-
 Include the wizard.js file at the bottom of your html file
 ```HTML
 <script src="../../wizard.js"></script>
