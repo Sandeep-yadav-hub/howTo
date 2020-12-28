@@ -12,6 +12,8 @@ A simple JavaScript libarary (**_howtodo_**) which can give you a power to creat
 ## Usage
 Just By these simple steps...
 
+#### HTML
+
 Include the wizard.js file at the bottom of your html file
 ```HTML
 <script src="../../wizard.js"></script>
@@ -23,6 +25,9 @@ Give div a id : ```"instructionsModal"```
 
 </div>
 ```
+
+#### JavaScript
+
 Make a new howToDoWizard and pass the values.
 
 ```JavaScript
@@ -74,7 +79,6 @@ var listOfInstruction = [
 >          * ```placeholder``` : add if you have a input and want to mimic a example value , ```audioUrl``` : add if you have a audio file to play,```imageUrl``` : add if you have a image or illustration to show better example,```text``` : add if you want to show some text under the image or juts want to show the text
 
 
-----
 
 ## Customization
 You can also change the background and font color of the pop up window just by passing the value in ```.play()```
