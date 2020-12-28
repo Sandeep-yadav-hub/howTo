@@ -47,7 +47,7 @@ instruction.play();
 |```interval```| time in which th next step will be shown . By default it is ```3000ms```|
 |```navigation```|By default it is ```true```|
 
-Example of a instruction with multiple topics
+Example of a instruction with multiple topics and multiple steps.
 
 ```JavaScript
 var listOfInstruction = [
@@ -65,7 +65,15 @@ var listOfInstruction = [
                     imageUrl:
                     "https://techcrunch.com/wp-content/uploads/2018/01/giphy1.gif?w=730&crop=1",
                     audioUrl: "/static/assets/audio/waterfall.mp3",
-                },
+                }
+            },
+            {
+                stepId: 1,
+                step: "Enter Your Password here Here",
+                id: "password",
+                example: {
+                    placeholder: "a2@bcqwe",
+                }
             }
         ],
     },
@@ -82,7 +90,7 @@ var listOfInstruction = [
                     imageUrl:
                     "https://techcrunch.com/wp-content/uploads/2018/01/giphy1.gif?w=730&crop=1",
                     audioUrl: "/static/assets/audio/waterfall.mp3",
-                },
+                }
             }
         ],
     },
@@ -98,25 +106,32 @@ var listOfInstruction = [
 
  A simple Example showing how the Widget will look with diffrent ```examples```
 
-<!-- ![previewOFaWidget](https://bucket--001.s3.ap-south-1.amazonaws.com/preview.png) -->
-<div style="display:flex;flex-wrap:wrap;justify-content:space-between">
+>With Image in it
+![previewOFaWidget](https://bucket--001.s3.ap-south-1.amazonaws.com/preview.png)
+
+>With only Text in it
+![previewOFaWidget](https://bucket--001.s3.ap-south-1.amazonaws.com/Screen+Shot+2020-12-28+at+6.19.55+PM.png)
+
+>With only Text and Image in it
+![previewOFaWidget](https://bucket--001.s3.ap-south-1.amazonaws.com/Screen+Shot+2020-12-28+at+6.19.47+PM.png)
+<!-- <div style="display:flex;flex-wrap:wrap;justify-content:space-between">
     <div style="width: 33%;">
-        <img style="margin:auto;max-width: 100%;" src="https://bucket--001.s3.ap-south-1.amazonaws.com/preview.png" />
+        <img style="margin:auto;max-width: %;" src="https://bucket--001.s3.ap-south-1.amazonaws.com/preview.png" />
         <p style="text-align:center">Image 1</p>
     </div>
     <div style="width: 33%;">
-        <img style="margin:auto;max-width: 100%;" src="https://bucket--001.s3.ap-south-1.amazonaws.com/Screen+Shot+2020-12-28+at+6.19.55+PM.png" />
+        <img style="margin:auto;max-width: %;" src="https://bucket--001.s3.ap-south-1.amazonaws.com/Screen+Shot+2020-12-28+at+6.19.55+PM.png" />
         <p style="text-align:center">Image 2</p>
     </div>
     <div style="width: 33%;">
-        <img style="margin:auto;max-width: 100%;" src="https://bucket--001.s3.ap-south-1.amazonaws.com/Screen+Shot+2020-12-28+at+6.19.47+PM.png" />
+        <img style="margin:auto;max-width: %;" src="https://bucket--001.s3.ap-south-1.amazonaws.com/Screen+Shot+2020-12-28+at+6.19.47+PM.png" />
         <p style="text-align:center">Image 3</p>
     </div>
 </div>
 
 * ```Image 1``` : A Instruction with Image in it
 * ```Image 2``` : A Instruction with only Text in it
-* ```Image 3``` : A Instruction with image & Text 
+* ```Image 3``` : A Instruction with image & Text  -->
 
 ## Customization
 You can also change the background and font color of the pop up window just by passing the value in ```.play()```
