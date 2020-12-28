@@ -1,6 +1,6 @@
 {
   "name": "howtodo",
-  "version": "1.0.22",
+  "version": "1.0.23",
   "description": " this package will give the ability to add instruction to fill form easy",
   "main": "index.js",
   "scripts": {
