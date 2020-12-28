@@ -7,7 +7,8 @@ npm i howtodo
 ## About this Project
 A simple JavaScript libarary (**_howtodo_**) which can give you a power to create a instruction session fun and easy for all your **_Web Products_** .
 
-<div style="text-align:center;margin-bottom:1rem;margin-top:1rem"><img src="./static/images/preview.gif"/></div>
+![previewImg](./static/images/preview.gif)
+<!-- <div style="text-align:center;margin-bottom:1rem;margin-top:1rem"><img src="./static/images/preview.gif"/></div> -->
 
 ## Usage
 Just By these simple steps you can show anyone ```"How to do this?"``` Anywhere in you website
@@ -90,7 +91,8 @@ var fontColor = "#fff"
 instruction.play(backgroundColor,fontColor);
 
 ```
-<div style="text-align:center;margin-bottom:3rem;margin-top:1rem"><img src="./static/images/colorChange.png"/></div>
+<!-- <div style="text-align:center;margin-bottom:3rem;margin-top:1rem"><img src="./static/images/colorChange.png"/></div> -->
 
+![changeBackgroundPreview](./static/images/colorChange.png)
 
 
