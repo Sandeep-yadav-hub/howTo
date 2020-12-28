@@ -79,7 +79,9 @@ var listOfInstruction = [
 >     * ```example```: It is a Object which will give power to insert exmples for the instruction for eg: Placeholder : Mimic a input for better understanding,imgage:to show a example visually, and also you can add audio for more fun sessions,and also you can add text .
 >          * ```placeholder``` : add if you have a input and want to mimic a example value , ```audioUrl``` : add if you have a audio file to play,```imageUrl``` : add if you have a image or illustration to show better example,```text``` : add if you want to show some text under the image or juts want to show the text
 
+ A simple Example showing how the Widget will look if the example has a ```imageUrl``` in it
 
+![previewOFaWidget](https://bucket--001.s3.ap-south-1.amazonaws.com/preview.png)
 
 ## Customization
 You can also change the background and font color of the pop up window just by passing the value in ```.play()```
