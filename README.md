@@ -107,13 +107,16 @@ var listOfInstruction = [
  A simple Example showing how the Widget will look with diffrent ```examples```
 
 >With Image in it
->![previewOFaWidget](https://bucket--001.s3.ap-south-1.amazonaws.com/preview.png)
+
+![previewOFaWidget](https://bucket--001.s3.ap-south-1.amazonaws.com/preview.png)
 
 >With only Text in it
->![previewOFaWidget](https://bucket--001.s3.ap-south-1.amazonaws.com/Screen+Shot+2020-12-28+at+6.19.55+PM.png)
+
+![previewOFaWidget](https://bucket--001.s3.ap-south-1.amazonaws.com/Screen+Shot+2020-12-28+at+6.19.55+PM.png)
 
 >With only Text and Image in it
->![previewOFaWidget](https://bucket--001.s3.ap-south-1.amazonaws.com/Screen+Shot+2020-12-28+at+6.19.47+PM.png)
+
+![previewOFaWidget](https://bucket--001.s3.ap-south-1.amazonaws.com/Screen+Shot+2020-12-28+at+6.19.47+PM.png)
 <!-- <div style="display:flex;flex-wrap:wrap;justify-content:space-between">
     <div style="width: 33%;">
         <img style="margin:auto;max-width: %;" src="https://bucket--001.s3.ap-south-1.amazonaws.com/preview.png" />
