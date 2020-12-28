@@ -47,7 +47,7 @@ instruction.play();
 |```interval```| time in which th next step will be shown . By default it is ```3000ms```|
 |```navigation```|By default it is ```true```|
 
-Example of a single instruction session
+Example of a instruction with multiple topics
 
 ```JavaScript
 var listOfInstruction = [
@@ -57,8 +57,25 @@ var listOfInstruction = [
     instruction: [
             {
                 stepId: 0,
-                step: "top-left",
-                id: "top-left",
+                step: "Enter Your Email id Here",
+                id: "emailId",
+                example: {
+                    placeholder: "example@gmail.com",
+                    text: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Iste rem vitae minima, dignissimos",
+                    imageUrl:
+                    "https://techcrunch.com/wp-content/uploads/2018/01/giphy1.gif?w=730&crop=1",
+                    audioUrl: "/static/assets/audio/waterfall.mp3",
+                },
+            }
+        ],
+    },
+    id: 1,
+    title: "how to do this",
+    instruction: [
+            {
+                stepId: 0,
+                step: "Do Something Here",
+                id: "eleId",
                 example: {
                     placeholder: "example@gmail.com",
                     text: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Iste rem vitae minima, dignissimos",
@@ -79,9 +96,27 @@ var listOfInstruction = [
 >     * ```example```: It is a Object which will give power to insert exmples for the instruction for eg: Placeholder : Mimic a input for better understanding,imgage:to show a example visually, and also you can add audio for more fun sessions,and also you can add text .
 >          * ```placeholder``` : add if you have a input and want to mimic a example value , ```audioUrl``` : add if you have a audio file to play,```imageUrl``` : add if you have a image or illustration to show better example,```text``` : add if you want to show some text under the image or juts want to show the text
 
- A simple Example showing how the Widget will look if the example has a ```imageUrl``` in it
+ A simple Example showing how the Widget will look with diffrent ```examples```
 
-![previewOFaWidget](https://bucket--001.s3.ap-south-1.amazonaws.com/preview.png)
+<!-- ![previewOFaWidget](https://bucket--001.s3.ap-south-1.amazonaws.com/preview.png) -->
+<div style="display:flex;flex-wrap:wrap;justify-content:space-between">
+    <div style="width: 33%;">
+        <img style="margin:auto;max-width: 100%;" src="https://bucket--001.s3.ap-south-1.amazonaws.com/preview.png" />
+        <p style="text-align:center">Image 1</p>
+    </div>
+    <div style="width: 33%;">
+        <img style="margin:auto;max-width: 100%;" src="https://bucket--001.s3.ap-south-1.amazonaws.com/Screen+Shot+2020-12-28+at+6.19.55+PM.png" />
+        <p style="text-align:center">Image 2</p>
+    </div>
+    <div style="width: 33%;">
+        <img style="margin:auto;max-width: 100%;" src="https://bucket--001.s3.ap-south-1.amazonaws.com/Screen+Shot+2020-12-28+at+6.19.47+PM.png" />
+        <p style="text-align:center">Image 3</p>
+    </div>
+</div>
+
+* ```Image 1``` : A Instruction with Image in it
+* ```Image 2``` : A Instruction with only Text in it
+* ```Image 3``` : A Instruction with image & Text 
 
 ## Customization
 You can also change the background and font color of the pop up window just by passing the value in ```.play()```
