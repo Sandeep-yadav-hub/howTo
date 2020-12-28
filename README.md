@@ -10,7 +10,7 @@ A simple JavaScript libarary (**_howtodo_**) which can give you a power to creat
 <div style="text-align:center;margin-bottom:1rem;margin-top:1rem"><img src="./static/images/preview.gif"/></div>
 
 ## Usage
-Just By these simple steps...
+Just By these simple steps you can show anyone ```"How to do this?"``` Anywhere in you website
 
 #### HTML
 
