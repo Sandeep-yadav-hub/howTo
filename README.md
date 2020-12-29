@@ -5,13 +5,13 @@
 npm i howtodo
 ```
 ## About this Project
-A simple JavaScript libarary (**_howtodo_**) which can give you a power to create a instruction session fun and easy for all your **_Web Products_** .
+A simple JavaScript libarary (**_howtodo_**) which can give you a power to create the instruction session more fun and easy for all your **_Web And Mobile Products_** .
 
 ![previewImg](https://bucket--001.s3.ap-south-1.amazonaws.com/preview.gif)
-<!-- <div style="text-align:center;margin-bottom:1rem;margin-top:1rem"><img src="./static/images/preview.gif"/></div> -->
+
 
 ## Usage
-Just By these simple steps you can show anyone ```"How to do this?"``` Anywhere in you website
+Just By these simple steps you can show anyone ```"How to do this?"``` Anywhere in you website.
 
 #### HTML
 
@@ -20,7 +20,7 @@ Include the wizard.js file at the bottom of your html file
 <script src="../../wizard.js"></script>
 ```
 
-Give div a id : ```"instructionsModal"```
+Create div with the id ```"instructionsModal"```
 ```html
 <div id="instructionsModal">
 
@@ -29,10 +29,10 @@ Give div a id : ```"instructionsModal"```
 
 #### JavaScript
 
-Make a new howToDoWizard and pass the values.
+Make a new instance ```howToDoWizard``` and pass the values.
 
 ```JavaScript
-var instruction = new howToDoWizard(array, id, autoplay, interval,navigation); //id = id of the instruction from the array
+var instruction = new howToDoWizard(array, id, autoplay, interval,navigation); //id = topic id from the array
 
 // to start a fun session
 instruction.play(); 
@@ -41,13 +41,13 @@ instruction.play();
 
 ||Description|     
 |----|-----|      
-|```array```|list of instructions session  |
-|```id```|id of the perticular instruction session from the array  |
-|```autoplay```| to run the instruction session with any navigation . By default it is ```false```|
-|```interval```| time in which th next step will be shown . By default it is ```3000ms```|
-|```navigation```|By default it is ```true```|
+|```array```|list of topics with their instructions   |
+|```id```|topic ```id``` from the array|
+|```autoplay```|By default it is :```false```|
+|```interval```| time in which the next step will be executed. By default it is :```3000ms```|
+|```navigation```|By default it is :```true``` (```back``` and ```next```) |
 
-Example of a instruction with multiple topics and multiple steps.
+Example of a session with multiple topics and multiple instruction.
 
 ```JavaScript
 var listOfInstruction = [
@@ -96,15 +96,15 @@ var listOfInstruction = [
     },
 ];
 ```
-> * ```id``` : Must be  unique . For initializing the correct instruction session. ```Important```
-> * ```title``` : As the name suggest title/topic of the session. ```Important```
-> * ```instruction``` : It is a array in which every object is Step of the perticular session. ```Important```
->     * ```step``` : heading of the wizard window and also the heading of the perticular step. ```Important```
->     * ```id```: Same as the DOM Element id for which this step is initiated (Unique)
->     * ```example```: It is a Object which will give power to insert exmples for the instruction for eg: Placeholder : Mimic a input for better understanding,imgage:to show a example visually, and also you can add audio for more fun sessions,and also you can add text .
->          * ```placeholder``` : add if you have a input and want to mimic a example value , ```audioUrl``` : add if you have a audio file to play,```imageUrl``` : add if you have a image or illustration to show better example,```text``` : add if you want to show some text under the image or juts want to show the text
+> * ```id``` : Must be  unique . For initializing the correct topic from the array.```Important```
+> * ```title``` : As the name suggest title/topic of the session. 
+> * ```instruction``` : It is a array in which every object is instruction of the perticular topic. 
+>     * ```step``` : Title of the instruction. 
+>     * ```id```: Element ```id``` where you want to show the instruction. (Unique)
+>     * ```example```: .
+>          * ```placeholder``` : for input elments to mimic form filling , ```audioUrl``` : To play audio in the background,```imageUrl``` : add image ,```text``` : add text below the image or just add text.
 
- A simple Example showing how the Widget will look with diffrent ```examples```
+ A simple Example showing how the Widget will look with diffrent ```example options```
 
 >With Image in it
 
@@ -117,27 +117,9 @@ var listOfInstruction = [
 >With only Text and Image in it
 
 ![previewOFaWidget](https://bucket--001.s3.ap-south-1.amazonaws.com/Screen+Shot+2020-12-28+at+6.19.47+PM.png)
-<!-- <div style="display:flex;flex-wrap:wrap;justify-content:space-between">
-    <div style="width: 33%;">
-        <img style="margin:auto;max-width: %;" src="https://bucket--001.s3.ap-south-1.amazonaws.com/preview.png" />
-        <p style="text-align:center">Image 1</p>
-    </div>
-    <div style="width: 33%;">
-        <img style="margin:auto;max-width: %;" src="https://bucket--001.s3.ap-south-1.amazonaws.com/Screen+Shot+2020-12-28+at+6.19.55+PM.png" />
-        <p style="text-align:center">Image 2</p>
-    </div>
-    <div style="width: 33%;">
-        <img style="margin:auto;max-width: %;" src="https://bucket--001.s3.ap-south-1.amazonaws.com/Screen+Shot+2020-12-28+at+6.19.47+PM.png" />
-        <p style="text-align:center">Image 3</p>
-    </div>
-</div>
-
-* ```Image 1``` : A Instruction with Image in it
-* ```Image 2``` : A Instruction with only Text in it
-* ```Image 3``` : A Instruction with image & Text  -->
 
 ## Customization
-You can also change the background and font color of the pop up window just by passing the value in ```.play()```
+You can also change the background and font color of the instruction window just by passing these in ```.play()```
 
 
 ```JavaScript
@@ -146,7 +128,6 @@ var fontColor = "#fff"
 instruction.play(backgroundColor,fontColor);
 
 ```
-<!-- <div style="text-align:center;margin-bottom:3rem;margin-top:1rem"><img src="https://bucket--001.s3.ap-south-1.amazonaws.com/colorChange.png"/></div> -->
 
 ![changeBackgroundPreview](https://bucket--001.s3.ap-south-1.amazonaws.com/colorChange.png)
 
