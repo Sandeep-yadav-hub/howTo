@@ -1,9 +1,20 @@
 # How to do
 
 ## Installation
+
+#### Use NPM
 ```
 npm i howtodo
 ```
+
+#### Or use CDN
+
+When you only need to include Howtodo's compiled JS, you can use [jsDelivr](https://www.jsdelivr.com/). 
+
+```
+https://cdn.jsdelivr.net/npm/howtodo@1.0.26/wizard.min.js
+```
+
 ## About this Project
 A simple JavaScript libarary (**_howtodo_**) which can give you a power to create the instruction session more fun and easy for all your **_Web And Mobile Products_** .
 
@@ -17,7 +28,7 @@ Just By these simple steps you can show anyone ```"How to do this?"``` Anywhere 
 
 Include the wizard.js file at the bottom of your html file
 ```HTML
-<script src="../../wizard.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/howtodo@1.0.26/wizard.min.js"></script>
 ```
 
 Create div with the id ```"instructionsModal"```

@@ -1,5 +1,6 @@
+"use strict";
 class howToDoWizard {
-  constructor(array, id,autoplay, interval,navigation) {
+  constructor(array, id, autoplay, interval, navigation) {
     this.array = array;
     this.navigation = navigation;
     this.timeOut = interval;
@@ -8,21 +9,20 @@ class howToDoWizard {
     this.steps;
     this.instructions;
     this.text;
-    this.autoplay = autoplay
-
+    this.autoplay = autoplay;
   }
 
-  play(InstructionBackgroundColor,fontColor) {
+  play(InstructionBackgroundColor, fontColor) {
     // alert(document.body.clientHeight);
     if (!fontColor && !InstructionBackgroundColor) {
       fontColor = "#000";
-      InstructionBackgroundColor="#fff"
+      InstructionBackgroundColor = "#fff";
     }
     // just to make sure it is empty to insert NEW DOM elements
     const clear = document.getElementById("instructionsModal");
     var element = document.querySelector(".backgroundBlurDiv");
-    if(element){
-        element.parentNode.removeChild(element);
+    if (element) {
+      element.parentNode.removeChild(element);
     }
     clear.innerHTML = "";
     clear.insertAdjacentHTML(
@@ -31,13 +31,12 @@ class howToDoWizard {
     );
     document.querySelector(".backgroundBlurDiv").classList.add("blurB");
     var focused_area = document.querySelector(".focus-increse-index");
-    if(focused_area){
+    if (focused_area) {
       focused_area.classList.remove("focus-increse-index");
     }
     // document.querySelector(".focus-increse-index").classList.remove("focus-increse-index");
 
     const instructions = this.array[this.id].instruction;
-    
 
     // html code to put in window
     var divElement = `
@@ -104,10 +103,10 @@ class howToDoWizard {
         
         <p class=" instructionText" style="margin-bottom:0 ;padding-left: 1rem;padding-right: 1rem;padding-bottom: 1.5rem;margin-top:2rem;font-size: 18px;max-width:100%;" >${this.text}</p>
         <div style="width:95%;margin:auto;">
-          <img class="instructionImg" src="" alt="" style="max-width:100%;border-radius:8px">
+          <img class="instructionImg" src="" alt="" style="max-width:100%;border-radius:8px;padding-bottom:1rem;">
         </div>
         <div style="width:95%;margin:auto;">
-          <p class="instructionTextExample" style="margin-bottom:0 ;padding-top: 1rem;padding-bottom:0;font-size: 14px;color:#000;max-width:100%;"></p>
+          <p class="instructionTextExample" style="margin-bottom:0 ;padding-left: 0.4rem;padding-bottom:0;font-size: 14px;color:#000;max-width:100%;"></p>
         </div>
         <div style="width:95%;margin:auto;">
             <audio class="instructionAudioExample" src="" autoplay hidden></audio>
@@ -117,42 +116,45 @@ class howToDoWizard {
             <p id="nextStep" class="" style="margin-bottom:0 ;padding-right: 1rem;padding-top: 1.5rem;padding-bottom:1.5rem;text-align: right;font-size: 14px;cursor: pointer;">Next</p>
         </div>
     </div>`;
-    
-    document.getElementById("instructionsModal").innerHTML=divElement
+
+    document.getElementById("instructionsModal").innerHTML = divElement;
     // $("#instructionsModal").append(divElement);
 
     // checking if the user want navigation
-    if(this.navigation!=false){
+    if (this.navigation != false) {
       document.querySelector(".wiz-navigation").style.display = "flex";
-    }else{
+    } else {
       document.querySelector(".wiz-navigation").style.display = "none";
       document.querySelector(".instructionImg").style.marginBottom = "1.5rem";
     }
-    
-    //checking if user want autoplay and gave timeOut 
 
-    if(this.autoplay!=false && this.timeOut!=undefined ){
-      var k = 0
-      document.querySelector(".instructionAudioExample").removeEventListener("ended",()=>{})
+    //checking if user want autoplay and gave timeOut
+
+    if (this.autoplay != false && this.timeOut != undefined) {
+      var k = 0;
+      document
+        .querySelector(".instructionAudioExample")
+        .removeEventListener("ended", () => {});
       function autoplay(timeOut) {
         k++;
         setTimeout(() => {
           document.getElementById("nextStep").click();
         }, timeOut * k);
       }
-      for(var l = 0;l<instructions.length;l++){
-        autoplay(this.timeOut)
+      for (var l = 0; l < instructions.length; l++) {
+        autoplay(this.timeOut);
       }
     }
 
     this.instructions = this.array[this.id];
     var eleId = this.instructions.instruction[this.step].id;
-    document.querySelector(".instructionText").innerHTML = this.instructions.instruction[this.step].step;
+    document.querySelector(
+      ".instructionText"
+    ).innerHTML = this.instructions.instruction[this.step].step;
     // this.text = this.instructions.instruction[this.step].step;
     var example = this.instructions.instruction[this.step].example;
-    
+
     var typeWriterSpeed = 100;
-    
 
     // clear placeholder before initiating the instruction
     for (var j = 0; j < this.instructions.instruction.length; j++) {
@@ -160,9 +162,7 @@ class howToDoWizard {
       document.getElementById(eleid).placeholder = "";
     }
 
-    
-    
-    function giveInstruction(example,eleId){
+    function giveInstruction(example, eleId) {
       // function ngFor(){
       //   for(var z =0 ;z<example.audioUrl.length;z++){
       //   }
@@ -171,32 +171,36 @@ class howToDoWizard {
       var imgInput = document.querySelector(".instructionImg");
       var textInput = document.querySelector(".instructionTextExample");
 
-      if(example.text){
+      if (example.text) {
         textInput.style.display = "block";
         textInput.innerHTML = example.text;
-      }else{
+      } else {
         textInput.style.innerHTML = "";
         textInput.style.display = "none";
       }
       var s = 0;
-      var eleid = eleId
+      var eleid = eleId;
       // typeWriter() gives typing Effect for the example
-      function typeWriter(){
-          if (s < example.placeholder.length) {
-            document.getElementById(eleid).placeholder += example.placeholder.charAt(s);
-            s++;
-            setTimeout(typeWriter, typeWriterSpeed);
-          }
+      function typeWriter() {
+        if (s < example.placeholder.length) {
+          document.getElementById(
+            eleid
+          ).placeholder += example.placeholder.charAt(s);
+          s++;
+          setTimeout(typeWriter, typeWriterSpeed);
+        }
       }
-      function setImgUrl(){
-          var getEleToInstertImg = document.querySelector(".instructionImg");
-          getEleToInstertImg.src = "";
-          getEleToInstertImg.src = example.imageUrl;
+      function setImgUrl() {
+        var getEleToInstertImg = document.querySelector(".instructionImg");
+        getEleToInstertImg.src = "";
+        getEleToInstertImg.src = example.imageUrl;
       }
-      function setAudioUrl(){
-        var getEleToSetAudioSrc = document.querySelector(".instructionAudioExample" );
-        getEleToSetAudioSrc.src = ""
-        getEleToSetAudioSrc.src = example.audioUrl
+      function setAudioUrl() {
+        var getEleToSetAudioSrc = document.querySelector(
+          ".instructionAudioExample"
+        );
+        getEleToSetAudioSrc.src = "";
+        getEleToSetAudioSrc.src = example.audioUrl;
         // getEleToSetAudioSrc.src = example.audioUrl[0].url
         // document.querySelector(".exampleAudioLanguage").innerHTML =
         //   example.audioUrl[0].language;
@@ -204,25 +208,49 @@ class howToDoWizard {
           document.getElementById("nextStep").click();
         });
       }
-      // checking before initializing 
-      if (example.placeholder != undefined && !example.imageUrl && !example.audioUrl) {
-        imgInput.style.display ="none"
+      // checking before initializing
+      if (
+        example.placeholder != undefined &&
+        !example.imageUrl &&
+        !example.audioUrl
+      ) {
+        imgInput.style.display = "none";
         typeWriter();
-      } else if (example.imageUrl != undefined && !example.placeholder && !example.audioUrl) {
-        imgInput.style.display ="block"
+      } else if (
+        example.imageUrl != undefined &&
+        !example.placeholder &&
+        !example.audioUrl
+      ) {
+        imgInput.style.display = "block";
         setImgUrl();
-      } else if (!example.imageUrl && !example.placeholder && example.audioUrl!=undefined) {
+      } else if (
+        !example.imageUrl &&
+        !example.placeholder &&
+        example.audioUrl != undefined
+      ) {
         imgInput.style.display = "none";
         setAudioUrl();
-      } else if (example.imageUrl != undefined && example.placeholder !=undefined && !example.audioUrl) {
-        imgInput.style.display ="block"
+      } else if (
+        example.imageUrl != undefined &&
+        example.placeholder != undefined &&
+        !example.audioUrl
+      ) {
+        imgInput.style.display = "block";
         typeWriter();
         setImgUrl();
-      } else if (example.imageUrl != undefined && !example.placeholder  && example.audioUrl !=undefined) {
+      } else if (
+        example.imageUrl != undefined &&
+        !example.placeholder &&
+        example.audioUrl != undefined
+      ) {
         imgInput.style.display = "block";
         setAudioUrl();
         setImgUrl();
-      } else if (!example.imageUrl && example.placeholder !=undefined  && example.audioUrl !=undefined) { 
+      } else if (
+        !example.imageUrl &&
+        example.placeholder != undefined &&
+        example.audioUrl != undefined
+      ) {
         imgInput.style.display = "none";
         setAudioUrl();
         typeWriter();
@@ -234,12 +262,17 @@ class howToDoWizard {
       }
     }
 
-    giveInstruction(example,eleId);
+    giveInstruction(example, eleId);
 
     var elementId = this.instructions.instruction[this.step].id;
     // getting the position to put the instruction at
     var getElement = document.getElementById(elementId);
-    getElement.classList.add("focus-increse-index");
+    console.log({ getElement });
+    if (getElement.tagName === "INPUT") {
+      getElement.classList.remove("focus-increse-index");
+    } else {
+      getElement.classList.add("focus-increse-index");
+    }
     var elementPositionTop = getElement.offsetTop;
     var elementPositionLeft = getElement.offsetLeft;
 
@@ -259,7 +292,9 @@ class howToDoWizard {
 
     // for moving the window widget to its place
     function moveWidget(elementId) {
-      document.getElementById(elementId).scrollIntoView(true)
+      document.getElementById(elementId).scrollIntoView(false);
+      // console.log(findPosition(document.getElementById(elementId)))
+
       var removeClass = document.querySelector(".boxEdgeInstWidget");
       if (removeClass.style.removeProperty) {
         removeClass.style.removeProperty("bottom");
@@ -272,16 +307,22 @@ class howToDoWizard {
       var elementId = elementId;
       var elementPositionTop = document.getElementById(elementId).offsetTop;
       var elementPositionLeft = document.getElementById(elementId).offsetLeft;
-      var elementPositionHeight = document.getElementById(elementId).offsetHeight;
+      var elementPositionHeight = document.getElementById(elementId)
+        .offsetHeight;
       var getElement = document.getElementById(elementId);
       document.getElementById(elementId);
       var getElement_width = getElement.offsetWidth;
       var getElementHeight = getElement.offsetHeight;
-      var invertBoxEdgeInstWidget = document.querySelector(".invertBoxEdgeInstWidget");
+      var invertBoxEdgeInstWidget = document.querySelector(
+        ".invertBoxEdgeInstWidget"
+      );
       document
         .querySelector(".instructionImg")
         .addEventListener("load", function () {
-          if (document.body.clientHeight < getElement_height + elementPositionTop + 400) {
+          if (
+            document.body.clientHeight <
+            getElement_height + elementPositionTop + 400
+          ) {
             document.getElementById("instructionsModal").style.top =
               String(
                 Number(
@@ -290,80 +331,104 @@ class howToDoWizard {
                     15
                 )
               ) + "px";
-          }else if(document.body.clientHeight>getElement_height + elementPositionTop +400){
-              document.getElementById("instructionsModal").style.top =
-                String(Number(elementPositionTop + 15)) + "px";
+          } else if (
+            document.body.clientHeight >
+            getElement_height + elementPositionTop + 400
+          ) {
+            document.getElementById("instructionsModal").style.top =
+              String(Number(elementPositionTop + 15)) + "px";
           }
         });
       setTimeout(() => {
         var modal = document.getElementById("instructionsModal");
-        console.log(
-          elementPositionLeft + getElement_width >
-          screen.width - modal.offsetWidth && document.body.clientHeight < getElementHeight +elementPositionTop+modal.offsetHeight
-        );
         if (
-          getElement_width === screen.width  &&
-              document.body.clientHeight > getElement_height + elementPositionTop + modal.offsetHeight 
+          getElement_width === screen.width &&
+          document.body.clientHeight >
+            getElement_height + elementPositionTop + modal.offsetHeight
         ) {
-              console.log("there is  sapce down and no sapce on the right or left");
-              console.log("6");
+          console.log("there is  sapce down and no sapce on the right or left");
+          console.log("6");
 
-              console.log(elementPositionLeft + getElement_width > screen.width - modal.offsetWidth);
-              var modal = document.getElementById("instructionsModal");
-              modal.style.top =String(Number(elementPositionTop +getElement_height +80) + "px");
-              modal.style.left = String(Number(elementPositionLeft + 50 )) + "px";
-              document.querySelector(".blurB").style.height = String(Number(document.body.clientHeight+modal.offsetHeight+50)+"px")
-              var getEdge = document.querySelector(".boxEdgeInstWidget");
-              getEdge.classList.add("topLeftboxEgdeInstWidget");
-              getEdge.style.top = "-15px";
-              getEdge.style.left = "0px";
-              // getEdge.style.transform = "rotate(90deg)";
-              if (getEdge.style.removeProperty) {
-                getEdge.style.removeProperty("right");
-                getEdge.style.removeProperty("bottom");
-              } else {
-                getEdge.style.removeAttribute("right");
-                getEdge.style.removeAttribute("bottom");
-              }
-              getEdge.classList.add("invertBottomleftBoxEdgeInstWidget");
-              document.querySelector(".instructionImg").addEventListener("load", function () {
-              if (document.body.clientHeight < getElementHeight + elementPositionTop + 550 ) {
-                  modal.style.top = String(Number(elementPositionTop - modal.offsetHeight +15 )) +
+          console.log(
+            elementPositionLeft + getElement_width >
+              screen.width - modal.offsetWidth
+          );
+          var modal = document.getElementById("instructionsModal");
+          modal.style.top = String(
+            Number(elementPositionTop + getElement_height + 80) + "px"
+          );
+          modal.style.left = String(Number(elementPositionLeft + 50)) + "px";
+          document.querySelector(".blurB").style.height = String(
+            Number(document.body.clientHeight + modal.offsetHeight + 50) + "px"
+          );
+          var getEdge = document.querySelector(".boxEdgeInstWidget");
+          getEdge.classList.add("topLeftboxEgdeInstWidget");
+          getEdge.style.top = "-15px";
+          getEdge.style.left = "0px";
+          // getEdge.style.transform = "rotate(90deg)";
+          if (getEdge.style.removeProperty) {
+            getEdge.style.removeProperty("right");
+            getEdge.style.removeProperty("bottom");
+          } else {
+            getEdge.style.removeAttribute("right");
+            getEdge.style.removeAttribute("bottom");
+          }
+          getEdge.classList.add("invertBottomleftBoxEdgeInstWidget");
+          document
+            .querySelector(".instructionImg")
+            .addEventListener("load", function () {
+              if (
+                document.body.clientHeight <
+                getElementHeight + elementPositionTop + 550
+              ) {
+                modal.style.top =
+                  String(Number(elementPositionTop - modal.offsetHeight + 15)) +
                   "px";
               }
-          });
-              
-        }
-          else if (
-              getElement_width === screen.width  &&
-              document.body.clientHeight < getElement_height + elementPositionTop + modal.offsetHeight 
+            });
+        } else if (
+          getElement_width === screen.width &&
+          document.body.clientHeight <
+            getElement_height + elementPositionTop + modal.offsetHeight
         ) {
-              console.log("there is no sapce down and no sapce on the right");
-              console.log("2");
+          console.log("there is no sapce down and no sapce on the right");
+          console.log("2");
 
-              console.log(elementPositionLeft + getElement_width > screen.width - modal.offsetWidth);
-              var modal = document.getElementById("instructionsModal");
-              modal.style.top =String(Number(elementPositionTop - modal.offsetHeight -80) + "px");
-              modal.style.left = String(Number(elementPositionLeft + 50 )) + "px";
-              document.querySelector(".blurB").style.height = String(Number(document.body.clientHeight+modal.offsetHeight+50)+"px")
-              var getEdge = document.querySelector(".boxEdgeInstWidget");
-              getEdge.style.bottom = "-30px";
-              getEdge.style.left = "-10px";
-              getEdge.style.transform = "rotate(270deg)";
-              if (getEdge.style.removeProperty) {
-                getEdge.style.removeProperty("right");
-              } else {
-                getEdge.style.removeAttribute("right");
-              }
-              getEdge.classList.add("invertBottomleftBoxEdgeInstWidget");
-              document.querySelector(".instructionImg").addEventListener("load", function () {
-              if (document.body.clientHeight < getElementHeight + elementPositionTop + 550 ) {
-                  modal.style.top = String(Number(elementPositionTop - modal.offsetHeight +15 )) +
+          console.log(
+            elementPositionLeft + getElement_width >
+              screen.width - modal.offsetWidth
+          );
+          var modal = document.getElementById("instructionsModal");
+          modal.style.top = String(
+            Number(elementPositionTop - modal.offsetHeight - 80) + "px"
+          );
+          modal.style.left = String(Number(elementPositionLeft + 50)) + "px";
+          document.querySelector(".blurB").style.height = String(
+            Number(document.body.clientHeight + modal.offsetHeight + 50) + "px"
+          );
+          var getEdge = document.querySelector(".boxEdgeInstWidget");
+          getEdge.style.bottom = "-30px";
+          getEdge.style.left = "-10px";
+          getEdge.style.transform = "rotate(270deg)";
+          if (getEdge.style.removeProperty) {
+            getEdge.style.removeProperty("right");
+          } else {
+            getEdge.style.removeAttribute("right");
+          }
+          getEdge.classList.add("invertBottomleftBoxEdgeInstWidget");
+          document
+            .querySelector(".instructionImg")
+            .addEventListener("load", function () {
+              if (
+                document.body.clientHeight <
+                getElementHeight + elementPositionTop + 550
+              ) {
+                modal.style.top =
+                  String(Number(elementPositionTop - modal.offsetHeight + 15)) +
                   "px";
               }
-          });
-              
-        }else if (
+            });
+        } else if (
           elementPositionLeft + getElement_width >
             screen.width - modal.offsetWidth &&
           document.body.clientHeight >
@@ -427,7 +492,7 @@ class howToDoWizard {
             .addEventListener("load", function () {
               if (
                 document.body.clientHeight <
-                getElement_height + elementPositionTop + 550
+                getElement_height + elementPositionTop + modal.offsetHeight
               ) {
                 instructionsModal.style.top =
                   Number(
@@ -532,7 +597,9 @@ class howToDoWizard {
     moveWidget(li[step].id);
 
     // for closing the instruction window
-    document.getElementById("closeInstWindow").addEventListener("click", function () {
+    document
+      .getElementById("closeInstWindow")
+      .addEventListener("click", function () {
         var clear = document.getElementById("instructionsModal");
         for (var j = 0; j < li.length; j++) {
           var eleid = li[j].id;
@@ -555,23 +622,32 @@ class howToDoWizard {
         var liInst = li[step];
         var preStep = step + 1;
         if (preStep >= 0) {
-            console.log({preStep})
+          console.log({ preStep });
           var preInst = li[preStep];
           console.log({ preInst });
-          document.getElementById(preInst.id).classList.remove("focus-increse-index");
+          document
+            .getElementById(preInst.id)
+            .classList.remove("focus-increse-index");
         }
         var eleId = liInst.id;
-        document.getElementById(eleId).classList.add("focus-increse-index");
+        if (document.getElementById(eleId).tagName === "INPUT") {
+          document
+            .getElementById(eleId)
+            .classList.remove("focus-increse-index");
+        } else {
+          document.getElementById(eleId).classList.add("focus-increse-index");
+        }
         var instructionText = document.querySelector(".instructionText");
         instructionText.innerHTML = liInst.step;
         var example = liInst.example;
         document.getElementById(eleId).placeholder = "";
         var s = 0;
         var getEleToInstertImg = document.querySelector(".instructionImg");
-        var getEleToSetAudioSrc = document.querySelector(".instructionAudioExample" );
+        var getEleToSetAudioSrc = document.querySelector(
+          ".instructionAudioExample"
+        );
         getEleToInstertImg.src = "";
         getEleToSetAudioSrc.src = "";
-        
 
         giveInstruction(example, eleId);
 
@@ -600,23 +676,26 @@ class howToDoWizard {
               .getElementById(preInst.id)
               .classList.remove("focus-increse-index");
           }
-          
         } else {
           step = step + 1;
           var liInst = li[step];
           var preStep = step - 1;
           if (preStep != 0) {
             var preInst = li[preStep];
-            console.log({preInst})
+            console.log({ preInst });
             document
               .getElementById(preInst.id)
               .classList.remove("focus-increse-index");
           }
           var eleId = liInst.id;
-          document
-            .getElementById(liInst.id)
-            .classList.add("focus-increse-index");
-          
+          if (document.getElementById(eleId).tagName === "INPUT") {
+            document
+              .getElementById(eleId)
+              .classList.remove("focus-increse-index");
+          } else {
+            document.getElementById(eleId).classList.add("focus-increse-index");
+          }
+
           if (step + 1 >= li.length) {
             document.getElementById("nextStep").innerHTML = "Done";
           } else {
@@ -630,10 +709,11 @@ class howToDoWizard {
           var s = 0;
 
           var getEleToInstertImg = document.querySelector(".instructionImg");
-          var getEleToSetAudioSrc = document.querySelector(".instructionAudioExample" );
+          var getEleToSetAudioSrc = document.querySelector(
+            ".instructionAudioExample"
+          );
           getEleToInstertImg.src = "";
           getEleToSetAudioSrc.src = "";
-          
 
           giveInstruction(example, eleId);
           moveWidget(liInst.id);
@@ -645,9 +725,19 @@ class howToDoWizard {
         if (preStep >= 0) {
           var preInst = li[preStep];
           console.log(preInst.id);
-          document.getElementById(preInst.id).classList.remove("focus-increse-index");
+          document
+            .getElementById(preInst.id)
+            .classList.remove("focus-increse-index");
         }
-        document.getElementById(liInst.id).classList.add("focus-increse-index");
+        if (document.getElementById(liInst.id).tagName === "INPUT") {
+          document
+            .getElementById(liInst.id)
+            .classList.remove("focus-increse-index");
+        } else {
+          document
+            .getElementById(liInst.id)
+            .classList.add("focus-increse-index");
+        }
         var instructionText = document.querySelector(".instructionText");
         instructionText.innerHTML = liInst.step;
         var eleId = liInst.id;
@@ -655,10 +745,11 @@ class howToDoWizard {
         document.getElementById(eleId).placeholder = "";
         var s = 0;
         var getEleToInstertImg = document.querySelector(".instructionImg");
-        var getEleToSetAudioSrc = document.querySelector(".instructionAudioExample" );
+        var getEleToSetAudioSrc = document.querySelector(
+          ".instructionAudioExample"
+        );
         getEleToInstertImg.src = "";
         getEleToSetAudioSrc.src = "";
-        
 
         giveInstruction(example, eleId);
         moveWidget(liInst.id);
@@ -666,4 +757,4 @@ class howToDoWizard {
     });
   }
 }
-module.exports(howToDoWizard);
+module.exports.howToDoWizard;
