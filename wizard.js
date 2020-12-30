@@ -96,6 +96,7 @@ class howToDoWizard {
           box-shadow:0px 0px 5px #999;
           z-index:3;
         }
+        
     </style>
     <div class="boxEdgeInstWidget" style="left: -44px;"></div>
     <div style="color:${fontColor}">
@@ -103,7 +104,7 @@ class howToDoWizard {
         
         <p class=" instructionText" style="margin-bottom:0 ;padding-left: 1rem;padding-right: 1rem;padding-bottom: 1.5rem;margin-top:2rem;font-size: 18px;max-width:100%;" >${this.text}</p>
         <div style="width:95%;margin:auto;">
-          <img class="instructionImg" src="" alt="" style="max-width:100%;border-radius:8px;padding-bottom:1rem;">
+          <img class="instructionImg" src="" alt="" style="max-width:100%;height:380px;border-radius:8px;margin-bottom: 1rem;">
         </div>
         <div style="width:95%;margin:auto;">
           <p class="instructionTextExample" style="margin-bottom:0 ;padding-left: 0.4rem;padding-bottom:0;font-size: 14px;color:#000;max-width:100%;"></p>
@@ -267,12 +268,17 @@ class howToDoWizard {
     var elementId = this.instructions.instruction[this.step].id;
     // getting the position to put the instruction at
     var getElement = document.getElementById(elementId);
-    console.log({ getElement });
-    if (getElement.tagName === "INPUT") {
+    console.log(getElement.tagName);
+    if (
+      getElement.tagName === "INPUT" ||
+      getElement.tagName === "LABEL" ||
+      getElement.tagName === "BUTTON"
+    ) {
       getElement.classList.remove("focus-increse-index");
     } else {
       getElement.classList.add("focus-increse-index");
     }
+
     var elementPositionTop = getElement.offsetTop;
     var elementPositionLeft = getElement.offsetLeft;
 
@@ -284,6 +290,12 @@ class howToDoWizard {
     var li = instructions;
     // getting the current step into the script and saving into a var
     var step = this.step;
+    if (step + 1 >= li.length) {
+      document.getElementById("nextStep").innerHTML = "Done";
+    } else {
+      console.log("still next");
+      document.getElementById("nextStep").innerHTML = "Next";
+    }
 
     // interval for the autoplay steps
     var i = 0;
@@ -292,7 +304,7 @@ class howToDoWizard {
 
     // for moving the window widget to its place
     function moveWidget(elementId) {
-      document.getElementById(elementId).scrollIntoView(false);
+      document.getElementById(elementId).scrollIntoView();
       // console.log(findPosition(document.getElementById(elementId)))
 
       var removeClass = document.querySelector(".boxEdgeInstWidget");
@@ -630,7 +642,12 @@ class howToDoWizard {
             .classList.remove("focus-increse-index");
         }
         var eleId = liInst.id;
-        if (document.getElementById(eleId).tagName === "INPUT") {
+        console.log(document.getElementById(eleId).tagName);
+        if (
+          document.getElementById(liInst.id).tagName === "INPUT" ||
+          document.getElementById(liInst.id).tagName === "LABEL" ||
+          document.getElementById(liInst.id).tagName === "BUTTON"
+        ) {
           document
             .getElementById(eleId)
             .classList.remove("focus-increse-index");
@@ -688,7 +705,11 @@ class howToDoWizard {
               .classList.remove("focus-increse-index");
           }
           var eleId = liInst.id;
-          if (document.getElementById(eleId).tagName === "INPUT") {
+          console.log(document.getElementById(eleId).tagName);
+          if (
+            document.getElementById(liInst.id).tagName === "INPUT" ||
+            document.getElementById(liInst.id).tagName === "LABEL"
+          ) {
             document
               .getElementById(eleId)
               .classList.remove("focus-increse-index");
@@ -699,6 +720,7 @@ class howToDoWizard {
           if (step + 1 >= li.length) {
             document.getElementById("nextStep").innerHTML = "Done";
           } else {
+            console.log("still next");
             document.getElementById("nextStep").innerHTML = "Next";
           }
           var instructionText = document.querySelector(".instructionText");
@@ -729,7 +751,17 @@ class howToDoWizard {
             .getElementById(preInst.id)
             .classList.remove("focus-increse-index");
         }
-        if (document.getElementById(liInst.id).tagName === "INPUT") {
+        console.log(document.getElementById(liInst.id).tagName);
+        if (step + 1 >= li.length) {
+          document.getElementById("nextStep").innerHTML = "Done";
+        } else {
+          console.log("still next");
+          document.getElementById("nextStep").innerHTML = "Next";
+        }
+        if (
+          document.getElementById(liInst.id).tagName === "INPUT" ||
+          document.getElementById(liInst.id).tagName === "LABEL"
+        ) {
           document
             .getElementById(liInst.id)
             .classList.remove("focus-increse-index");
@@ -758,4 +790,3 @@ class howToDoWizard {
   }
 }
 module.exports.howToDoWizard;
-
