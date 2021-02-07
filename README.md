@@ -28,7 +28,7 @@ Just By these simple steps you can show anyone ```"How to do this?"``` Anywhere 
 
 Include the wizard.js file at the bottom of your html file
 ```HTML
-<script src="https://cdn.jsdelivr.net/npm/howtodo@1.0.28/wizard.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/howtodo@1.0.29/wizard.min.js"></script>
 ```
 
 #### JavaScript
