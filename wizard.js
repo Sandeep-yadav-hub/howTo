@@ -1,32 +1,36 @@
-class howToDoWizard {
+
+
+export default class howToDoWizard {
   constructor() {
-    this.array;
-    this.navigation ;
-    this.timeOut ;
-    this.id ;
+    this.array = [];
+    this.navigation = Boolean;
+    this.timeOut=String ;
+    this.id = String ;
     this.step = 0;
-    this.steps;
-    this.instructions;
-    this.text;
-    this.autoplay ;
+    this.instructions = this.array;
+    this.text = String;
+    this.autoplay = Boolean;
     this.takeInput = false;
   }
 
   
-  async play(topicId, autoplay, interval, navigation,InstructionBackgroundColor, fontColor) {
+  async play({topicId, autoplay, interval, navigation,InstructionBackgroundColor, fontColor,myInput}) {
     this.navigation = navigation;
     this.timeOut = interval;
     this.id = topicId;
     this.step = 0;
-    this.steps;
-    this.instructions;
-    this.text;
+    // this.instructions;
+    // this.text;
     this.autoplay = autoplay;
-    const response = await fetch(
-      `http://localhost:8000/api/v1/topics/user/topic?id=${topicId}`
-      // `http://localhost:8000/api/v1/topics/topics/?apiKey=${this.id.apiKey}&apiSecretKey=${this.id.apiSecretKey}`
-    );
-    this.array = await response.json();
+    if(!myInput && topicId){
+      const response = await fetch(
+        `http://howtodo-env.eba-qfag845f.ap-south-1.elasticbeanstalk.com//api/v1/topics/user/topic?id=${topicId}`
+        // `http://localhost:8000/api/v1/topics/user/topic?id=${topicId}`
+      );
+      this.array = await response.json();
+    }else if (myInput && !topicId){
+      this.array = myInput;
+    }
     
     
       // userId
@@ -73,7 +77,6 @@ class howToDoWizard {
           // return arr;
         };
         var topic = returnObjectByAttr(user.topicId,"topicId",topicId);
-        console.log(topic);
         if(!topic){
           user.topicId.push({topicId})
           setCookie("howtodoWizardUser", JSON.stringify(user), 30);
@@ -92,14 +95,12 @@ class howToDoWizard {
             xhr.send(JSON.stringify(data));
             xhr.onload = function () {
               // var data = JSON.parse(this.responseText);
-              // console.log(data);
+              
             };
             
           }
           post()
         }
-        console.log("uuid alredy exists")
-        console.log(getCookie("howtodoWizardUser"))
       } else {
         function uuidv4() {
           return ([1e7] + -1e3 + -4e3 + -8e3 + -1e11).replace(/[018]/g, (c) =>
@@ -119,7 +120,6 @@ class howToDoWizard {
             user:howtodoWizardUser,
             userAgent:navigator.userAgent
           }
-          console.log(JSON.stringify(data));
           var post = async()=>{
             var xhr = new XMLHttpRequest();
             xhr.open(
@@ -133,7 +133,6 @@ class howToDoWizard {
             );
             xhr.onload = function () {
               // var data = JSON.parse(this.responseText);
-              // console.log(data);
             };
           }
           post()
@@ -181,7 +180,6 @@ class howToDoWizard {
       // return arr;
     };
 
-    console.log(this.array);
     // document.querySelector(".focus-increse-index").classList.remove("focus-increse-index");
     // const instructions = returnObjectByAttr(this.array, "topicId", this.id).instruction;
     const instructions = this.array.instruction;
@@ -372,8 +370,11 @@ class howToDoWizard {
     var typeWriterSpeed = 100;
     // for moving the window widget to its place
     function moveWidget(elementId) {
-      document.getElementById(elementId).scrollIntoView(true);
-      // console.log(findPosition(document.getElementById(elementId)))
+      document
+        .getElementById(elementId)
+        .scrollIntoView({
+          behavior: "smooth",
+        });
 
       var removeClass = document.querySelector(".boxEdgeInstWidget");
       if (removeClass.style.removeProperty) {
@@ -422,17 +423,10 @@ class howToDoWizard {
       setTimeout(() => {
         var modal = document.getElementById("instructionsModal");
         if (
-          getElement_width === screen.width &&
+          getElement_width === window.screen.width &&
           document.body.clientHeight >
             getElement_height + elementPositionTop + modal.offsetHeight
         ) {
-          console.log("there is  sapce down and no sapce on the right or left");
-          console.log("6");
-
-          console.log(
-            elementPositionLeft + getElement_width >
-              screen.width - modal.offsetWidth
-          );
           var modal = document.getElementById("instructionsModal");
           modal.style.top = String(
             Number(elementPositionTop + getElement_height + 80) + "px"
@@ -467,17 +461,10 @@ class howToDoWizard {
               }
             });
         } else if (
-          getElement_width === screen.width &&
+          getElement_width === window.screen.width &&
           document.body.clientHeight <
             getElement_height + elementPositionTop + modal.offsetHeight
         ) {
-          console.log("there is no sapce down and no sapce on the right");
-          console.log("2");
-
-          console.log(
-            elementPositionLeft + getElement_width >
-              screen.width - modal.offsetWidth
-          );
           var modal = document.getElementById("instructionsModal");
           modal.style.top = String(
             Number(elementPositionTop - modal.offsetHeight - 80) + "px"
@@ -509,13 +496,10 @@ class howToDoWizard {
               }
             });
         } else if (
-          elementPositionLeft + getElement_width >screen.width - modal.offsetWidth &&
+          elementPositionLeft + getElement_width >window.screen.width - modal.offsetWidth &&
           document.body.clientHeight > getElementHeight + elementPositionTop + modal.offsetHeight
         ) {
-          console.log("there is sapce down and and no sapce on the right ");
-          console.log("1");
-          console.log(document.body.clientHeight,getElementHeight ,elementPositionTop,document.getElementById("instructionsModal").offsetHeight
-          );
+          
 
           var modal = document.getElementById("instructionsModal");
           modal.style.top = String(Number(elementPositionTop + 25)) + "px";
@@ -533,7 +517,6 @@ class howToDoWizard {
           }
           getEdge.classList.add("invertBoxEdgeInstWidget");
           document.querySelector(".instructionImg").addEventListener("load", function () {
-            console.log(document.body.clientHeight,getElementHeight , elementPositionTop,document.getElementById("instructionsModal").offsetHeight);
             
             if (document.body.clientHeight < getElementHeight + elementPositionTop + document.getElementById("instructionsModal").offsetHeight) {
                 
@@ -547,21 +530,17 @@ class howToDoWizard {
             });
         } else if (
           elementPositionLeft + getElement_width <
-            screen.width - modal.offsetWidth &&
+            window.screen.width - modal.offsetWidth &&
           document.body.clientHeight >
             getElementHeight + elementPositionTop + modal.offsetHeight
         ) {
-          console.log("there is sapce down and sapce on the right");
-          console.log("3");
           function getPos(el) {
             var rect = el.getBoundingClientRect();
             return { x: rect.left, y: rect.top };
           }
           let el = document.getElementById(elementId);
-          console.log(getPos(el));
           var instructionsModal = document.querySelector("#instructionsModal");
           var boxEdgeInstWidget = document.querySelector(".boxEdgeInstWidget");
-          console.log(elementPositionTop, elementPositionLeft);
           instructionsModal.style.top = String(Number(elementPositionTop) + 15) + "px";
           instructionsModal.style.left =
             String(Number(elementPositionLeft) + Number(getElement_width) + 40) + "px";
@@ -589,12 +568,10 @@ class howToDoWizard {
             });
         } else if (
           elementPositionLeft + getElement_width <
-            screen.width - modal.offsetWidth &&
+            window.screen.width - modal.offsetWidth &&
           document.body.clientHeight <
             getElement_height + elementPositionTop + modal.offsetHeight
         ) {
-          console.log("there is no sapce down and there is sapce on the right");
-          console.log("4");
 
           var widgetWindow = document.getElementById("instructionsModal");
           widgetWindow.style.top =
@@ -631,12 +608,10 @@ class howToDoWizard {
             });
         } else if (
           elementPositionLeft + getElement_width >
-            screen.width - modal.offsetWidth &&
+            window.screen.width - modal.offsetWidth &&
           document.body.clientHeight <
             getElementHeight + elementPositionTop + modal.offsetHeight
         ) {
-          console.log("there is no sapce down and there is sapce on the left");
-          console.log("5");
 
           var widgetWindow = document.getElementById("instructionsModal");
           widgetWindow.style.top =
@@ -692,7 +667,6 @@ class howToDoWizard {
     if (this.autoplay != false && this.timeOut != undefined) {
       var k = 0;
       var audioPlace = document.querySelectorAll(".instructionAudioExample");
-      console.log(audioPlace.length)
       if(audioPlace.length!=0){
         var a = audioPlace.length
         while(a--){
@@ -709,7 +683,6 @@ class howToDoWizard {
         }, timeOut * k);
       }
       for (var l = 0; l < instructions.length; l++) {
-        console.log(l)
         if(l<instructions.length){
           autoplay(this.timeOut);
         }
@@ -727,9 +700,7 @@ class howToDoWizard {
       elementId = this.instructions.instruction[this.step].elementId;
       getElement = document.getElementById(elementId);
     }
-      console.log(getElement);
       var eleId = this.instructions.instruction[this.step].elementId;
-      console.log({ eleId });
       document.querySelector(
         ".instructionText"
       ).innerHTML = this.instructions.instruction[this.step].title;
@@ -820,16 +791,12 @@ class howToDoWizard {
         var preStep = step + 1;
         var getElement = document.getElementById(liInst.elementId);
         if (preStep >= 0) {
-          console.log({ preStep });
           var preInst = li[preStep];
-          console.log({ preInst });
           document
             .getElementById(preInst.elementId)
             .classList.remove("focus-increse-index");
         }
         var eleId = liInst.elementId;
-        console.log(getElement.tagName);
-        console.log(this.takeInput);
         if (
           getElement.tagName === "INPUT" ||
           getElement.tagName === "LABEL" ||
@@ -873,7 +840,6 @@ class howToDoWizard {
     // going to next step
     document.getElementById("nextStep").addEventListener("click", function () {
       // checking if it is not 0 or less
-      console.log("click next")
       if (step > 0) {
         // checking if it is the the last step to clear and remove the instruction window
         if (step >= li.length - 1) {
@@ -887,7 +853,6 @@ class howToDoWizard {
           var preStep = step;
           if (preStep != 0) {
             var preInst = li[preStep];
-            console.log({ preInst });
             document
               .getElementById(preInst.elementId)
               .classList.remove("focus-increse-index");
@@ -899,13 +864,12 @@ class howToDoWizard {
           var preStep = step - 1;
           var getElement = document.getElementById(liInst.elementId);
           if(getElement==null){
-            stepp++
+            step++
             liInst = li[step]
             getElement=document.getElementById(liInst.elementId)
           }
           if (preStep != 0) {
             var preInst = li[preStep];
-            console.log({ preInst });
             document
               .getElementById(preInst.elementId)
               .classList.remove("focus-increse-index");
@@ -936,7 +900,6 @@ class howToDoWizard {
           if (step + 1 >= li.length) {
             document.getElementById("nextStep").innerHTML = "Done";
           } else {
-            console.log("still next");
             document.getElementById("nextStep").innerHTML = "Next";
           }
           var instructionText = document.querySelector(".instructionText");
@@ -956,91 +919,158 @@ class howToDoWizard {
           giveInstruction(example, eleId);
           moveWidget(liInst.elementId);
         }
-      } else {
+      } else {                        //FIRST STEP
         step = step + 1;
-
-        if (step >= li.length) {
-          console.log(step, li.length);
+                      
+        if (step >= li.length) {  
+          // if there is no next step                                                    
           var elem = document.getElementById("instructionsModal");
           document.getElementById("instructionsModal").innerHTML = "";
           elem.parentNode.removeChild(elem);
-          console.log(document.getElementById("instructionsModal"));
           var element = document.querySelector(".backgroundBlurDiv");
           if (element) {
             element.parentNode.removeChild(element);
           }
         } else {
+          // if there is next step
           var liInst = li[step];
+          console.log(li)
           var preStep = step - 1;
           var getElement = document.getElementById(liInst.elementId);
           if (getElement == null) {
-            step++
-            liInst=li[step]
-            getElement = document.getElementById(liInst.elementId);
-            // document.getElementById("nextStep").click();
-          } 
-          if (preStep >= 0) {
-            var preInst = li[preStep];
-            console.log(preInst.elementId);
-            document
-              .getElementById(preInst.elementId)
-              .classList.remove("focus-increse-index");
-            document.getElementById(preInst.elementId).style.zIndex = 0;
-          }
+            // if element is null skip this
+            step++;
+            // get the instruction
+            liInst = li[step];
+            if (!liInst) {
+              // if no next step
+              //clear dom
+              var elem = document.getElementById("instructionsModal");
+              document.getElementById("instructionsModal").innerHTML = "";
+              elem.parentNode.removeChild(elem);
+              var element = document.querySelector(".backgroundBlurDiv");
+              if (element) {
+                element.parentNode.removeChild(element);
+              }
+            } else {
+              // else there is next step
+              getElement = document.getElementById(liInst.elementId);
+              if (preStep >= 0) {
+                var preInst = li[preStep];
+                document
+                  .getElementById(preInst.elementId)
+                  .classList.remove("focus-increse-index");
+                document.getElementById(preInst.elementId).style.zIndex = 0;
+              }
 
-          if (step + 1 >= li.length) {
-            document.getElementById("nextStep").innerHTML = "Done";
-          } else {
-            console.log("still next");
-            document.getElementById("nextStep").innerHTML = "Next";
-          }
-          if (
-            getElement.tagName === "INPUT" ||
-            getElement.tagName === "LABEL" ||
-            getElement.tagName === "TEXTAREA" ||
-            getElement.tagName === "SELECT" ||
-            getElement.tagName === "BUTTON"
-          ) {
-            document
-              .getElementById(liInst.elementId)
-              .classList.add("focus-increse-index");
-          } else {
-            document
-              .getElementById(liInst.elementId)
-              .classList.add("focus-increse-index");
-          }
-          if (
-            (this.takeInput == true && getElement.tagName === "INPUT") ||
-            getElement.tagName === "TEXTAREA" ||
-            getElement.tagName === "SELECT"
-          ) {
-            getElement.focus();
-            getElement.style.zIndex = 100;
-            getElement.style.position = "relative";
-            getElement.setAttribute("autocomplete", "off");
-          }
-          var instructionText = document.querySelector(".instructionText");
-          instructionText.innerHTML = liInst.title;
-          var eleId = liInst.elementId;
-          var example = liInst.example;
-          document.getElementById(eleId).placeholder = "";
-          var s = 0;
-          var getEleToInstertImg = document.querySelector(".instructionImg");
-          var getEleToSetAudioSrc = document.querySelector(
-            ".instructionAudioExample"
-          );
-          getEleToInstertImg.src = "";
-          getEleToSetAudioSrc.src = "";
+              if (step + 1 >= li.length) {
+                document.getElementById("nextStep").innerHTML = "Done";
+              } else {
+                document.getElementById("nextStep").innerHTML = "Next";
+              }
+              if (
+                getElement.tagName === "INPUT" ||
+                getElement.tagName === "LABEL" ||
+                getElement.tagName === "TEXTAREA" ||
+                getElement.tagName === "SELECT" ||
+                getElement.tagName === "BUTTON"
+              ) {
+                document
+                  .getElementById(liInst.elementId)
+                  .classList.add("focus-increse-index");
+              } else {
+                document
+                  .getElementById(liInst.elementId)
+                  .classList.add("focus-increse-index");
+              }
+              if (
+                (this.takeInput == true && getElement.tagName === "INPUT") ||
+                getElement.tagName === "TEXTAREA" ||
+                getElement.tagName === "SELECT"
+              ) {
+                getElement.focus();
+                getElement.style.zIndex = 100;
+                getElement.style.position = "relative";
+                getElement.setAttribute("autocomplete", "off");
+              }
+              var instructionText = document.querySelector(".instructionText");
+              instructionText.innerHTML = liInst.title;
+              var eleId = liInst.elementId;
+              var example = liInst.example;
+              document.getElementById(eleId).placeholder = "";
+              var s = 0;
+              var getEleToInstertImg = document.querySelector(
+                ".instructionImg"
+              );
+              var getEleToSetAudioSrc = document.querySelector(
+                ".instructionAudioExample"
+              );
+              getEleToInstertImg.src = "";
+              getEleToSetAudioSrc.src = "";
 
-          giveInstruction(example, eleId);
-          moveWidget(liInst.elementId);
-        }
+              giveInstruction(example, eleId);
+              moveWidget(liInst.elementId);
+            }
+          } else {
+            //else there is next step
+              if (preStep >= 0) {
+                var preInst = li[preStep];
+                document
+                  .getElementById(preInst.elementId)
+                  .classList.remove("focus-increse-index");
+                document.getElementById(preInst.elementId).style.zIndex = 0;
+              }
+
+              if (step + 1 >= li.length) {
+                document.getElementById("nextStep").innerHTML = "Done";
+              } else {
+                document.getElementById("nextStep").innerHTML = "Next";
+              }
+              if (
+                getElement.tagName === "INPUT" ||
+                getElement.tagName === "LABEL" ||
+                getElement.tagName === "TEXTAREA" ||
+                getElement.tagName === "SELECT" ||
+                getElement.tagName === "BUTTON"
+              ) {
+                document
+                  .getElementById(liInst.elementId)
+                  .classList.add("focus-increse-index");
+              } else {
+                document
+                  .getElementById(liInst.elementId)
+                  .classList.add("focus-increse-index");
+              }
+              if (
+                (this.takeInput == true && getElement.tagName === "INPUT") ||
+                getElement.tagName === "TEXTAREA" ||
+                getElement.tagName === "SELECT"
+              ) {
+                getElement.focus();
+                getElement.style.zIndex = 100;
+                getElement.style.position = "relative";
+                getElement.setAttribute("autocomplete", "off");
+              }
+              var instructionText = document.querySelector(".instructionText");
+              instructionText.innerHTML = liInst.title;
+              var eleId = liInst.elementId;
+              var example = liInst.example;
+              document.getElementById(eleId).placeholder = "";
+              var s = 0;
+              var getEleToInstertImg = document.querySelector(".instructionImg");
+              var getEleToSetAudioSrc = document.querySelector(
+                ".instructionAudioExample"
+              );
+              getEleToInstertImg.src = "";
+              getEleToSetAudioSrc.src = "";
+
+              giveInstruction(example, eleId);
+              moveWidget(liInst.elementId);
+            }   
+          }
+          
       }
     });
   }
   
-}
-
-module.exports = ()=>{
-  return howToDoWizard
 }
