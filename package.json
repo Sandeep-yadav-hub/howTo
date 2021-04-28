@@ -1,6 +1,6 @@
 {
   "name": "howtodo",
-  "version": "1.0.30",
+  "version": "1.0.31",
   "description": " This package will give the ability to add instruction for anything on your Web product ",
   "main": "index.js",
   "scripts": {
@@ -10,7 +10,7 @@
     "howtodo",
     "instruction",
     "js",
-    "simplyfy product"
+    "simplify product"
   ],
   "author": "",
   "license": "ISC",

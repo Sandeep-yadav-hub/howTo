@@ -1,11 +1,9 @@
-
-
 export default class howToDoWizard {
   constructor() {
     this.array = [];
     this.navigation = Boolean;
-    this.timeOut=String ;
-    this.id = String ;
+    this.timeOut = String;
+    this.id = String;
     this.step = 0;
     this.instructions = this.array;
     this.text = String;
@@ -13,8 +11,15 @@ export default class howToDoWizard {
     this.takeInput = false;
   }
 
-  
-  async play({topicId, autoplay, interval, navigation,InstructionBackgroundColor, fontColor,myInput}) {
+  async play({
+    topicId,
+    autoplay,
+    interval,
+    navigation,
+    InstructionBackgroundColor,
+    fontColor,
+    myInput,
+  }) {
     this.navigation = navigation;
     this.timeOut = interval;
     this.id = topicId;
@@ -22,18 +27,18 @@ export default class howToDoWizard {
     // this.instructions;
     // this.text;
     this.autoplay = autoplay;
-    if(!myInput && topicId){
+    if (!myInput && topicId) {
       const response = await fetch(
-        `http://howtodo-env.eba-qfag845f.ap-south-1.elasticbeanstalk.com//api/v1/topics/user/topic?id=${topicId}`
+        `http://howtodo-env.eba-qfag845f.ap-south-1.elasticbeanstalk.com/api/v1/topics/user/topic?id=${topicId}`
+
         // `http://localhost:8000/api/v1/topics/user/topic?id=${topicId}`
       );
       this.array = await response.json();
-    }else if (myInput && !topicId){
+    } else if (myInput && !topicId) {
       this.array = myInput;
     }
-    
-    
-      // userId
+
+    // userId
     function setCookie(cname, cvalue, exdays) {
       var d = new Date();
       d.setTime(d.getTime() + exdays * 24 * 60 * 60 * 1000);
@@ -61,7 +66,7 @@ export default class howToDoWizard {
       var howtodoWizardUser = getCookie("howtodoWizardUser");
       if (howtodoWizardUser != "") {
         var user = JSON.parse(howtodoWizardUser);
-        let i = user.topicId.length
+        let i = user.topicId.length;
         var returnObjectByAttr = function (arr, attr, value) {
           var i = arr.length;
           while (i--) {
@@ -76,15 +81,15 @@ export default class howToDoWizard {
           }
           // return arr;
         };
-        var topic = returnObjectByAttr(user.topicId,"topicId",topicId);
-        if(!topic){
-          user.topicId.push({topicId})
+        var topic = returnObjectByAttr(user.topicId, "topicId", topicId);
+        if (!topic) {
+          user.topicId.push({ topicId });
           setCookie("howtodoWizardUser", JSON.stringify(user), 30);
           var data = {
-            user:user,
-            userAgent:navigator.userAgent
-          }
-          var post = async()=>{
+            user: user,
+            userAgent: navigator.userAgent,
+          };
+          var post = async () => {
             var xhr = new XMLHttpRequest();
             xhr.open(
               "POST",
@@ -95,11 +100,9 @@ export default class howToDoWizard {
             xhr.send(JSON.stringify(data));
             xhr.onload = function () {
               // var data = JSON.parse(this.responseText);
-              
             };
-            
-          }
-          post()
+          };
+          post();
         }
       } else {
         function uuidv4() {
@@ -111,16 +114,16 @@ export default class howToDoWizard {
           );
         }
         howtodoWizardUser = {
-          id:uuidv4(),
-          topicId:[{topicId}]
-        }
+          id: uuidv4(),
+          topicId: [{ topicId }],
+        };
         if (howtodoWizardUser != "" && howtodoWizardUser != null) {
           setCookie("howtodoWizardUser", JSON.stringify(howtodoWizardUser), 30);
           var data = {
-            user:howtodoWizardUser,
-            userAgent:navigator.userAgent
-          }
-          var post = async()=>{
+            user: howtodoWizardUser,
+            userAgent: navigator.userAgent,
+          };
+          var post = async () => {
             var xhr = new XMLHttpRequest();
             xhr.open(
               "POST",
@@ -128,23 +131,23 @@ export default class howToDoWizard {
               true
             );
             xhr.setRequestHeader("Content-Type", "application/json");
-            xhr.send(
-              JSON.stringify(data)
-            );
+            xhr.send(JSON.stringify(data));
             xhr.onload = function () {
               // var data = JSON.parse(this.responseText);
             };
-          }
-          post()
+          };
+          post();
         }
       }
     }
 
     checkCookie();
 
-    
-    var elm = document.body;
-    elm.insertAdjacentHTML("afterend", "<div id='instructionsModal'></div>");
+    var createinstructionsModal = document.createElement("div");
+    createinstructionsModal.id = "instructionsModal";
+    document.body.appendChild(createinstructionsModal);
+    // var elm = document.body;
+    // elm.insertAdjacentHTML("afterend", "<div id='instructionsModal'></div>");
     if (!fontColor && !InstructionBackgroundColor) {
       fontColor = "#000";
       InstructionBackgroundColor = "#fff";
@@ -156,11 +159,12 @@ export default class howToDoWizard {
       element.parentNode.removeChild(element);
     }
     clear.innerHTML = "";
-    clear.insertAdjacentHTML(
-      "afterend",
-      "<div class='backgroundBlurDiv' style='background:#999;opacity:0.4;width:100vw;height:${document.body.clientHeight};position:absolute;left:0;top:0'></div>"
-    );
-    document.querySelector(".backgroundBlurDiv").classList.add("blurB");
+
+    // let bgBlur = document.createElement("div")
+    // bgBlur.className = "backgroundBlurDiv";
+    // bgBlur.style.cssText = `background:#999;opacity:0.4;width:100%;max-height:${document.body.clientHeight};position:absolute;left:0;top:0`;
+    // document.body.appendChild(bgBlur);
+    // document.querySelector(".backgroundBlurDiv").classList.add("blurB");
     var focused_area = document.querySelector(".focus-increse-index");
     if (focused_area) {
       focused_area.classList.remove("focus-increse-index");
@@ -277,11 +281,36 @@ export default class howToDoWizard {
           // box-shadow:0px 0px 5px #999;
           z-index:99999999999;
           font-family: 'Raleway', sans-serif;
+          
+        }
+        .triangle-up {
+          width: 0;
+          height: 0;
+          border-left: 20px solid transparent;
+          border-right: 20px solid transparent;
+          border-bottom: 20px solid #fff;
+          margin: auto;
+          position: relative;
+          bottom:20px;
+        }
+        .triangle-down {
+          width: 0;
+          height: 0;
+          border-left: 20px solid transparent;
+          border-right: 20px solid transparent;
+          border-top: 20px solid #fff;
+          margin: auto;
+          position: relative;
+        }
+        .hide{
+          display:none;
         }
         
     </style>
     
     <div class="boxEdgeInstWidget" style="left: -20px;"></div>
+    <div class="triangle-up"></div>
+    <div class="triangle-down"></div>
     <div style="color:${fontColor}">
         <button  id="closeInstWindow" type="button"  data-bs-dismiss="modal" aria-label="Close" style="color: ${fontColor};background-color: transparent;border: none;margin-bottom: 0;margin-bottom: 0;position: absolute;right: 14px;cursor: pointer;top:10px">X</button>
         
@@ -370,11 +399,9 @@ export default class howToDoWizard {
     var typeWriterSpeed = 100;
     // for moving the window widget to its place
     function moveWidget(elementId) {
-      document
-        .getElementById(elementId)
-        .scrollIntoView({
-          behavior: "smooth",
-        });
+      document.getElementById(elementId).scrollIntoView({
+        behavior: "smooth",
+      });
 
       var removeClass = document.querySelector(".boxEdgeInstWidget");
       if (removeClass.style.removeProperty) {
@@ -400,6 +427,16 @@ export default class howToDoWizard {
       document
         .querySelector(".instructionImg")
         .addEventListener("load", function () {
+          // console.log("if widget height is going outside the client body height",
+          //   document.body.clientHeight <
+          //     getElement_height + elementPositionTop + 400
+          // );
+          // console.log(
+          //   "if widget height is not going outside the client body height",
+          //   document.body.clientHeight >
+          //     getElement_height + elementPositionTop + 400
+          // );
+
           if (
             document.body.clientHeight <
             getElement_height + elementPositionTop + 400
@@ -422,32 +459,64 @@ export default class howToDoWizard {
         });
       setTimeout(() => {
         var modal = document.getElementById("instructionsModal");
+
+        // console log respected to if else
+
+        // console.log(
+        //   "there is no place left and right but  enough space down",
+        //   window.screen.width <
+        //     modal.offsetWidth + (elementPositionLeft + getElement_width) && elementPositionLeft - modal.offsetWidth <
+        //     document.body.clientHeight >
+        //       getElement_height + elementPositionTop + modal.offsetHeight
+        // );
+        // console.log(
+        //   "there is no place left and right but no enough space down",
+        //   window.screen.width <
+        //     modal.offsetWidth + (elementPositionLeft + getElement_width) &&
+        //     document.body.clientHeight <
+        //       getElementHeight + elementPositionTop + modal.offsetHeight
+        // );
+        // console.log("there is no place on the right and enough space down",
+        //   elementPositionLeft + getElement_width >
+        //     window.screen.width - modal.offsetWidth &&
+        //     document.body.clientHeight >
+        //       getElementHeight + elementPositionTop + modal.offsetHeight
+        // );
+        // console.log("there is  place on the right and enough space down",
+        //   elementPositionLeft + getElement_width <
+        //     window.screen.width - modal.offsetWidth &&
+        //     document.body.clientHeight >
+        //       getElementHeight + elementPositionTop + modal.offsetHeight
+        // );
+        // console.log("there is place on the right and no enough space down ",
+        //   elementPositionLeft + getElement_width <
+        //     window.screen.width - modal.offsetWidth &&
+        //     document.body.clientHeight <
+        //       getElement_height + elementPositionTop + modal.offsetHeight
+        // );
+        // console.log(
+        //   "there is no place on the right and no enough space down ",
+        //   elementPositionLeft + getElement_width >
+        //     window.screen.width - modal.offsetWidth &&
+        //     document.body.clientHeight <
+        //       getElementHeight + elementPositionTop + modal.offsetHeight
+        // );
         if (
-          getElement_width === window.screen.width &&
+          window.screen.width <
+            modal.offsetWidth + (elementPositionLeft + getElement_width) &&
+          elementPositionLeft - modal.offsetWidth < 0 &&
           document.body.clientHeight >
             getElement_height + elementPositionTop + modal.offsetHeight
         ) {
           var modal = document.getElementById("instructionsModal");
           modal.style.top = String(
-            Number(elementPositionTop + getElement_height + 80) + "px"
+            Number(elementPositionTop + getElement_height + 25) + "px"
           );
-          modal.style.left = String(Number(elementPositionLeft + 50)) + "px";
-          document.querySelector(".blurB").style.height = String(
-            Number(document.body.clientHeight + modal.offsetHeight + 50) + "px"
-          );
-          var getEdge = document.querySelector(".boxEdgeInstWidget");
-          getEdge.classList.add("topLeftboxEgdeInstWidget");
-          getEdge.style.top = "-15px";
-          getEdge.style.left = "0px";
-          // getEdge.style.transform = "rotate(90deg)";
-          if (getEdge.style.removeProperty) {
-            getEdge.style.removeProperty("right");
-            getEdge.style.removeProperty("bottom");
-          } else {
-            getEdge.style.removeAttribute("right");
-            getEdge.style.removeAttribute("bottom");
-          }
-          getEdge.classList.add("invertBottomleftBoxEdgeInstWidget");
+          modal.style.left = 10 + "px";
+
+          document.querySelector(".boxEdgeInstWidget").classList.add("hide");
+          document.querySelector(".triangle-down").classList.add("hide");
+
           document
             .querySelector(".instructionImg")
             .addEventListener("load", function () {
@@ -461,28 +530,31 @@ export default class howToDoWizard {
               }
             });
         } else if (
-          getElement_width === window.screen.width &&
+          window.screen.width <
+            modal.offsetWidth + (elementPositionLeft + getElement_width) &&
           document.body.clientHeight <
-            getElement_height + elementPositionTop + modal.offsetHeight
+            getElementHeight + elementPositionTop + modal.offsetHeight
         ) {
           var modal = document.getElementById("instructionsModal");
           modal.style.top = String(
-            Number(elementPositionTop - modal.offsetHeight - 80) + "px"
+            Number(elementPositionTop - modal.offsetHeight - 25) + "px"
           );
-          modal.style.left = String(Number(elementPositionLeft + 50)) + "px";
-          document.querySelector(".blurB").style.height = String(
-            Number(document.body.clientHeight + modal.offsetHeight + 50) + "px"
-          );
-          var getEdge = document.querySelector(".boxEdgeInstWidget");
-          getEdge.style.bottom = "-30px";
-          getEdge.style.left = "-10px";
-          getEdge.style.transform = "rotate(270deg)";
-          if (getEdge.style.removeProperty) {
-            getEdge.style.removeProperty("right");
-          } else {
-            getEdge.style.removeAttribute("right");
+          modal.style.left = 10 + "px";
+
+          document.querySelector(".boxEdgeInstWidget").classList.add("hide");
+          document.querySelector(".triangle-up").classList.add("hide");
+          if (
+            document.querySelector(".triangle-up").classList.contains("hide")
+          ) {
+            document.querySelector(".triangle-down").classList.remove("hide");
           }
-          getEdge.classList.add("invertBottomleftBoxEdgeInstWidget");
+          console.log(
+            document.querySelector(".triangle-up").classList.contains("hide")
+          );
+
+          document.querySelector(".triangle-down").style.top =
+            modal.offsetHeight + "px";
+
           document
             .querySelector(".instructionImg")
             .addEventListener("load", function () {
@@ -496,14 +568,16 @@ export default class howToDoWizard {
               }
             });
         } else if (
-          elementPositionLeft + getElement_width >window.screen.width - modal.offsetWidth &&
-          document.body.clientHeight > getElementHeight + elementPositionTop + modal.offsetHeight
+          elementPositionLeft + getElement_width >
+            window.screen.width - modal.offsetWidth &&
+          document.body.clientHeight >
+            getElementHeight + elementPositionTop + modal.offsetHeight
         ) {
-          
-
+          document.querySelector(".triangle-up").classList.add("hide");
           var modal = document.getElementById("instructionsModal");
           modal.style.top = String(Number(elementPositionTop + 25)) + "px";
-          modal.style.left = String(elementPositionLeft - modal.offsetWidth - 40) + "px";
+          modal.style.left =
+            String(elementPositionLeft - modal.offsetWidth - 40) + "px";
           var getEdge = document.querySelector(".boxEdgeInstWidget");
           getEdge.style.right = "-20px";
           if (getEdge.style.removeProperty) {
@@ -516,13 +590,24 @@ export default class howToDoWizard {
             getEdge.style.removeAttribute("transform");
           }
           getEdge.classList.add("invertBoxEdgeInstWidget");
-          document.querySelector(".instructionImg").addEventListener("load", function () {
-            
-            if (document.body.clientHeight < getElementHeight + elementPositionTop + document.getElementById("instructionsModal").offsetHeight) {
-                
+          document
+            .querySelector(".instructionImg")
+            .addEventListener("load", function () {
+              if (
+                document.body.clientHeight <
+                getElementHeight +
+                  elementPositionTop +
+                  document.getElementById("instructionsModal").offsetHeight
+              ) {
                 document.getElementById("instructionsModal").style.top =
-                  String(Number(elementPositionTop - document.getElementById("instructionsModal").offsetHeight + 15)) +
-                  "px";
+                  String(
+                    Number(
+                      elementPositionTop -
+                        document.getElementById("instructionsModal")
+                          .offsetHeight +
+                        15
+                    )
+                  ) + "px";
                 document.querySelector(".boxEdgeInstWidget").style.bottom = 0;
                 document.querySelector(".boxEdgeInstWidget").style.transform =
                   "rotate(180deg)";
@@ -534,6 +619,7 @@ export default class howToDoWizard {
           document.body.clientHeight >
             getElementHeight + elementPositionTop + modal.offsetHeight
         ) {
+          document.querySelector(".triangle-up").classList.add("hide");
           function getPos(el) {
             var rect = el.getBoundingClientRect();
             return { x: rect.left, y: rect.top };
@@ -541,9 +627,12 @@ export default class howToDoWizard {
           let el = document.getElementById(elementId);
           var instructionsModal = document.querySelector("#instructionsModal");
           var boxEdgeInstWidget = document.querySelector(".boxEdgeInstWidget");
-          instructionsModal.style.top = String(Number(elementPositionTop) + 15) + "px";
+          instructionsModal.style.top =
+            String(Number(elementPositionTop) + 15) + "px";
           instructionsModal.style.left =
-            String(Number(elementPositionLeft) + Number(getElement_width) + 40) + "px";
+            String(
+              Number(elementPositionLeft) + Number(getElement_width) + 40
+            ) + "px";
           boxEdgeInstWidget.classList.remove("invertBoxEdgeInstWidget");
           boxEdgeInstWidget.style.left = "-20px";
           if (boxEdgeInstWidget.style.removeProperty) {
@@ -572,7 +661,7 @@ export default class howToDoWizard {
           document.body.clientHeight <
             getElement_height + elementPositionTop + modal.offsetHeight
         ) {
-
+          document.querySelector(".triangle-up").classList.add("hide");
           var widgetWindow = document.getElementById("instructionsModal");
           widgetWindow.style.top =
             String(
@@ -612,7 +701,7 @@ export default class howToDoWizard {
           document.body.clientHeight <
             getElementHeight + elementPositionTop + modal.offsetHeight
         ) {
-
+          document.querySelector(".triangle-up").classList.add("hide");
           var widgetWindow = document.getElementById("instructionsModal");
           widgetWindow.style.top =
             String(
@@ -652,7 +741,7 @@ export default class howToDoWizard {
               }
             });
         }
-      }, 0);
+      }, 500);
     }
     // checking if the user want navigation
     if (this.navigation != false) {
@@ -667,23 +756,23 @@ export default class howToDoWizard {
     if (this.autoplay != false && this.timeOut != undefined) {
       var k = 0;
       var audioPlace = document.querySelectorAll(".instructionAudioExample");
-      if(audioPlace.length!=0){
-        var a = audioPlace.length
-        while(a--){
+      if (audioPlace.length != 0) {
+        var a = audioPlace.length;
+        while (a--) {
           audioPlace[a].removeEventListener("ended", () => {});
         }
       }
       function autoplay(timeOut) {
         k++;
         setTimeout(() => {
-          var next = document.getElementById("nextStep")
-          if(next){
+          var next = document.getElementById("nextStep");
+          if (next) {
             next.click();
           }
         }, timeOut * k);
       }
       for (var l = 0; l < instructions.length; l++) {
-        if(l<instructions.length){
+        if (l < instructions.length) {
           autoplay(this.timeOut);
         }
       }
@@ -696,80 +785,82 @@ export default class howToDoWizard {
     // getting the position to put the instruction at
     var getElement = document.getElementById(elementId);
     if (getElement === null) {
-      this.step++
+      this.step++;
       elementId = this.instructions.instruction[this.step].elementId;
       getElement = document.getElementById(elementId);
     }
-      var eleId = this.instructions.instruction[this.step].elementId;
-      document.querySelector(
-        ".instructionText"
-      ).innerHTML = this.instructions.instruction[this.step].title;
-      // this.text = this.instructions.instruction[this.step].step;
-      var example = this.instructions.instruction[this.step].example;
+    var eleId = this.instructions.instruction[this.step].elementId;
+    document.querySelector(
+      ".instructionText"
+    ).innerHTML = this.instructions.instruction[this.step].title;
+    // this.text = this.instructions.instruction[this.step].step;
+    var example = this.instructions.instruction[this.step].example;
 
-      var typeWriterSpeed = 100;
+    var typeWriterSpeed = 100;
 
-      // clear placeholder before initiating the instruction
-      for (var j = 0; j < this.instructions.instruction.length; j++) {
-        var eleid = this.instructions.instruction[j].elementId;
-        if (document.getElementById(eleid)) {
-          document.getElementById(eleid).placeholder = "";
-        } else {
-          document.querySelector("#nextStep").click();
-        }
-      }
-      
-      if (
-        getElement.tagName === "INPUT" ||
-        getElement.tagName === "LABEL" ||
-        getElement.tagName === "BUTTON" ||
-        getElement.tagName === "TEXTAREA" ||
-        getElement.tagName === "SELECT"
-      ) {
-        getElement.classList.add("focus-increse-index");
+    // clear placeholder before initiating the instruction
+    for (var j = 0; j < this.instructions.instruction.length; j++) {
+      var eleid = this.instructions.instruction[j].elementId;
+      if (document.getElementById(eleid)) {
+        document.getElementById(eleid).placeholder = "";
       } else {
-        getElement.classList.add("focus-increse-index");
+        document.querySelector("#nextStep").click();
       }
-      const takeInput = this.takeInput;
-      if (
-        (takeInput == true && getElement.tagName === "INPUT") ||
-        getElement.tagName === "TEXTAREA" ||
-        getElement.tagName.tagName === "SELECT"
-      ) {
-        getElement.focus();
-        getElement.style.zIndex = 100;
-        getElement.style.position = "relative";
-        getElement.setAttribute("autocomplete", "off");
-      }
+    }
 
-      var elementPositionTop = getElement.offsetTop;
-      var elementPositionLeft = getElement.offsetLeft;
+    if (
+      getElement.tagName === "INPUT" ||
+      getElement.tagName === "LABEL" ||
+      getElement.tagName === "BUTTON" ||
+      getElement.tagName === "TEXTAREA" ||
+      getElement.tagName === "SELECT"
+    ) {
+      getElement.classList.add("focus-increse-index");
+    } else {
+      getElement.classList.add("focus-increse-index");
+    }
+    const takeInput = this.takeInput;
+    if (
+      (takeInput == true && getElement.tagName === "INPUT") ||
+      getElement.tagName === "TEXTAREA" ||
+      getElement.tagName.tagName === "SELECT"
+    ) {
+      getElement.focus();
+      getElement.style.zIndex = 100;
+      getElement.style.position = "relative";
+      getElement.setAttribute("autocomplete", "off");
+    }
 
-      // getting the width the put the instruction window at a suitable distance
-      var getElement_width = getElement.offsetWidth;
-      var getElement_height = getElement.offsetHeight;
+    var elementPositionTop = getElement.offsetTop;
+    var elementPositionLeft = getElement.offsetLeft;
 
-      // gputting insteuctions in a variable
-      var li = instructions;
-      // getting the current step into the script and saving into a var
-      var step = this.step;
-      if (step + 1 >= li.length) {
-        document.getElementById("nextStep").innerHTML = "Done";
-      } else {
-        document.getElementById("nextStep").innerHTML = "Next";
-      }
-      giveInstruction(example, eleId);
+    // getting the width the put the instruction window at a suitable distance
+    var getElement_width = getElement.offsetWidth;
+    var getElement_height = getElement.offsetHeight;
 
-      // moving for the first time(step==0)
-      moveWidget(li[step].elementId);
+    // gputting insteuctions in a variable
+    var li = instructions;
+    // getting the current step into the script and saving into a var
+    var step = this.step;
+    if (step + 1 >= li.length) {
+      document.getElementById("nextStep").innerHTML = "Done";
+    } else {
+      document.getElementById("nextStep").innerHTML = "Next";
+    }
+    giveInstruction(example, eleId);
+
+    // moving for the first time(step==0)
+    moveWidget(li[step].elementId);
 
     // for closing the instruction window
-    document.getElementById("closeInstWindow").addEventListener("click", function () {
+    document
+      .getElementById("closeInstWindow")
+      .addEventListener("click", function () {
         var clear = document.getElementById("instructionsModal");
         for (var j = 0; j < instructions.length; j++) {
           var eleid = instructions[j].elementId;
-          var elem = document.getElementById(eleid)
-          if (elem!=null) document.getElementById(eleid).placeholder = "";
+          var elem = document.getElementById(eleid);
+          if (elem != null) document.getElementById(eleid).placeholder = "";
         }
         clear.innerHTML = "";
         clear.removeAttribute("style");
@@ -863,10 +954,10 @@ export default class howToDoWizard {
           var liInst = li[step];
           var preStep = step - 1;
           var getElement = document.getElementById(liInst.elementId);
-          if(getElement==null){
-            step++
-            liInst = li[step]
-            getElement=document.getElementById(liInst.elementId)
+          if (getElement == null) {
+            step++;
+            liInst = li[step];
+            getElement = document.getElementById(liInst.elementId);
           }
           if (preStep != 0) {
             var preInst = li[preStep];
@@ -919,11 +1010,12 @@ export default class howToDoWizard {
           giveInstruction(example, eleId);
           moveWidget(liInst.elementId);
         }
-      } else {                        //FIRST STEP
+      } else {
+        //FIRST STEP
         step = step + 1;
-                      
-        if (step >= li.length) {  
-          // if there is no next step                                                    
+
+        if (step >= li.length) {
+          // if there is no next step
           var elem = document.getElementById("instructionsModal");
           document.getElementById("instructionsModal").innerHTML = "";
           elem.parentNode.removeChild(elem);
@@ -934,7 +1026,6 @@ export default class howToDoWizard {
         } else {
           // if there is next step
           var liInst = li[step];
-          console.log(li)
           var preStep = step - 1;
           var getElement = document.getElementById(liInst.elementId);
           if (getElement == null) {
@@ -1013,64 +1104,62 @@ export default class howToDoWizard {
             }
           } else {
             //else there is next step
-              if (preStep >= 0) {
-                var preInst = li[preStep];
-                document
-                  .getElementById(preInst.elementId)
-                  .classList.remove("focus-increse-index");
-                document.getElementById(preInst.elementId).style.zIndex = 0;
-              }
+            if (preStep >= 0) {
+              var preInst = li[preStep];
+              document
+                .getElementById(preInst.elementId)
+                .classList.remove("focus-increse-index");
+              document.getElementById(preInst.elementId).style.zIndex = 0;
+            }
 
-              if (step + 1 >= li.length) {
-                document.getElementById("nextStep").innerHTML = "Done";
-              } else {
-                document.getElementById("nextStep").innerHTML = "Next";
-              }
-              if (
-                getElement.tagName === "INPUT" ||
-                getElement.tagName === "LABEL" ||
-                getElement.tagName === "TEXTAREA" ||
-                getElement.tagName === "SELECT" ||
-                getElement.tagName === "BUTTON"
-              ) {
-                document
-                  .getElementById(liInst.elementId)
-                  .classList.add("focus-increse-index");
-              } else {
-                document
-                  .getElementById(liInst.elementId)
-                  .classList.add("focus-increse-index");
-              }
-              if (
-                (this.takeInput == true && getElement.tagName === "INPUT") ||
-                getElement.tagName === "TEXTAREA" ||
-                getElement.tagName === "SELECT"
-              ) {
-                getElement.focus();
-                getElement.style.zIndex = 100;
-                getElement.style.position = "relative";
-                getElement.setAttribute("autocomplete", "off");
-              }
-              var instructionText = document.querySelector(".instructionText");
-              instructionText.innerHTML = liInst.title;
-              var eleId = liInst.elementId;
-              var example = liInst.example;
-              document.getElementById(eleId).placeholder = "";
-              var s = 0;
-              var getEleToInstertImg = document.querySelector(".instructionImg");
-              var getEleToSetAudioSrc = document.querySelector(
-                ".instructionAudioExample"
-              );
-              getEleToInstertImg.src = "";
-              getEleToSetAudioSrc.src = "";
+            if (step + 1 >= li.length) {
+              document.getElementById("nextStep").innerHTML = "Done";
+            } else {
+              document.getElementById("nextStep").innerHTML = "Next";
+            }
+            if (
+              getElement.tagName === "INPUT" ||
+              getElement.tagName === "LABEL" ||
+              getElement.tagName === "TEXTAREA" ||
+              getElement.tagName === "SELECT" ||
+              getElement.tagName === "BUTTON"
+            ) {
+              document
+                .getElementById(liInst.elementId)
+                .classList.add("focus-increse-index");
+            } else {
+              document
+                .getElementById(liInst.elementId)
+                .classList.add("focus-increse-index");
+            }
+            if (
+              (this.takeInput == true && getElement.tagName === "INPUT") ||
+              getElement.tagName === "TEXTAREA" ||
+              getElement.tagName === "SELECT"
+            ) {
+              getElement.focus();
+              getElement.style.zIndex = 100;
+              getElement.style.position = "relative";
+              getElement.setAttribute("autocomplete", "off");
+            }
+            var instructionText = document.querySelector(".instructionText");
+            instructionText.innerHTML = liInst.title;
+            var eleId = liInst.elementId;
+            var example = liInst.example;
+            document.getElementById(eleId).placeholder = "";
+            var s = 0;
+            var getEleToInstertImg = document.querySelector(".instructionImg");
+            var getEleToSetAudioSrc = document.querySelector(
+              ".instructionAudioExample"
+            );
+            getEleToInstertImg.src = "";
+            getEleToSetAudioSrc.src = "";
 
-              giveInstruction(example, eleId);
-              moveWidget(liInst.elementId);
-            }   
+            giveInstruction(example, eleId);
+            moveWidget(liInst.elementId);
           }
-          
+        }
       }
     });
   }
-  
 }
