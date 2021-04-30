@@ -19,6 +19,8 @@ export default class howToDoWizard {
     InstructionBackgroundColor,
     fontColor,
     myInput,
+    btnBgcolorhover,
+    btntxtcolorhover,
   }) {
     this.navigation = navigation;
     this.timeOut = interval;
@@ -152,6 +154,10 @@ export default class howToDoWizard {
       fontColor = "#000";
       InstructionBackgroundColor = "#fff";
     }
+    if (!btnBgcolorhover && !btntxtcolorhover) {
+      btntxtcolorhover = "white";
+      btnBgcolorhover = "#162435";
+    }
     // just to make sure it is empty to insert NEW DOM elements
     const clear = document.getElementById("instructionsModal");
     var element = document.querySelector(".backgroundBlurDiv");
@@ -219,56 +225,7 @@ export default class howToDoWizard {
             border-bottom: 50px solid transparent;
             z-index: -1;            
         }
-        
-        // .blurB{
-        //     background:#999;
-        //     opacity:0.4;
-        //     width:100%;
-        //     height:${document.body.clientHeight}px;
-        //     position:absolute;
-        //     left:0;
-        //     top:0;
-        //     z-index:99
-
-        // }
-        // .focus-increse-index{
-        //     z-index:100;
-        //     border-radius: 8px;
-        //     background: #fff;
-        //     background-size: cover;
-        //     position: relative;
-        //     // box-shadow: 0 0 16px rgba(0, 0, 0, 0.5);
-        // }
-        // .focus-increse-index:before {
-        //   position: absolute;
-        //   content: "";
-        //   top: -3px;
-        //   bottom: -3px;
-        //   left: -3px;
-        //   right: -3px;
-        //   box-shadow: 0 0 rgba(0, 0, 0, 0.2), 0 0 0 16px rgba(0, 0, 0, 0.2),
-        //     0 0 0 32px rgba(0, 0, 0, 0.2), 0 0 0 48px rgba(0, 0, 0, 0.2);
-        //   z-index: -1;
-        //   animation: ripples 1s linear infinite;
-        //   animation-play-state: paused;
-        //   opacity: 0;
-        //   visibility: hidden;
-        //   transition: 0.5s;
-        //   transform: scale(0.5);
-        //   border-radius: 15%;
-        // }
-        // .focus-increse-index:before {
-        //   animation-play-state: running;
-        //   opacity: 1;
-        //   visibility: visible;
-        //   transform: scale(1);
-        // }
-        // @keyframes ripples {
-        //   to {
-        //     box-shadow: 0 0 0 16px rgba(0, 0, 0, 0.2), 0 0 0 32px rgba(0, 0, 0, 0.2),
-        //       0 0 0 48px rgba(0, 0, 0, 0.2), 0 0 0 64px rgba(0, 0, 0, 0);
-        //   }
-        // }
+      
         #instructionsModal{
           max-width:400px;
           min-width:400px;
@@ -278,7 +235,7 @@ export default class howToDoWizard {
           alighn-content:center;
           position:absolute;
           display:grid;
-          // box-shadow:0px 0px 5px #999;
+          box-shadow:0 1px 3px rgba(0, 0, 0, 0.12),0 1px 2px rgba(0, 0, 0, 0.24);
           z-index:99999999999;
           font-family: 'Raleway', sans-serif;
           
@@ -288,7 +245,7 @@ export default class howToDoWizard {
           height: 0;
           border-left: 20px solid transparent;
           border-right: 20px solid transparent;
-          border-bottom: 20px solid #fff;
+          border-bottom: 20px solid ${InstructionBackgroundColor};
           margin: auto;
           position: relative;
           bottom:20px;
@@ -298,13 +255,30 @@ export default class howToDoWizard {
           height: 0;
           border-left: 20px solid transparent;
           border-right: 20px solid transparent;
-          border-top: 20px solid #fff;
+          border-top: 20px solid ${InstructionBackgroundColor};
           margin: auto;
           position: relative;
         }
         .hide{
           display:none;
         }
+        #nextStep:hover{
+          back
+        }
+        #nextStep{
+          border-radius:6px;
+        }
+        #nextStep:hover{
+          background-color:${btnBgcolorhover};
+          color:${btntxtcolorhover}
+        }
+        // #backStep{
+        //   border-radius:6px;
+        // }
+        // #backStep:hover{
+        //   background-color:${btnBgcolorhover};
+        //   color:${btntxtcolorhover}
+        // }
         
     </style>
     
@@ -314,7 +288,7 @@ export default class howToDoWizard {
     <div style="color:${fontColor}">
         <button  id="closeInstWindow" type="button"  data-bs-dismiss="modal" aria-label="Close" style="color: ${fontColor};background-color: transparent;border: none;margin-bottom: 0;margin-bottom: 0;position: absolute;right: 14px;cursor: pointer;top:10px">X</button>
         
-        <p class=" instructionText" style="margin-bottom:0 ;padding-left: 1rem;padding-right: 1rem;padding-bottom: 1.5rem;margin-top:2rem;font-size: 18px;max-width:100%;" >${this.text}</p>
+        <p class=" instructionText" style="margin-bottom:0 ;padding-left: 1rem;padding-right: 1rem;padding-bottom: 1.5rem;font-size: 18px;max-width:100%;" >${this.text}</p>
         <div style="width:95%;margin:auto;background:#fff">
           <img class="instructionImg" src="" alt="" style="max-width:100%;border-radius:8px;margin-bottom: 1rem;">
         </div>
@@ -324,9 +298,9 @@ export default class howToDoWizard {
         <div style="width:95%;margin:auto;">
             <audio class="instructionAudioExample" src="" autoplay hidden></audio>
         </div>
-        <div class="wiz-navigation"  style="display: flex;justify-content: space-between;">
-            <p id="backStep" style="margin-bottom:0; padding-left: 1rem;padding-top: 1.5rem;padding-bottom:1.5rem;text-align: right;font-size: 14px; cursor: pointer;">Back</p>
-            <p id="nextStep" class="" style="margin-bottom:0 ;padding-right: 1rem;padding-top: 1.5rem;padding-bottom:1.5rem;text-align: right;font-size: 14px;cursor: pointer;">Next</p>
+        <div class="wiz-navigation"  style="display: flex;justify-content: space-between;padding:5px;margin-top:10px">
+            <p id="backStep" style="margin-bottom:0; padding:15px;align-slef:center:text-align: right;font-size: 14px; cursor: pointer;">Back</p>
+            <p id="nextStep" class="" style="margin-bottom:0 ;padding:15px;align-slef:center:text-align: right;font-size: 14px;cursor: pointer;">Got it</p>
         </div>
     </div>`;
 
@@ -399,10 +373,6 @@ export default class howToDoWizard {
     var typeWriterSpeed = 100;
     // for moving the window widget to its place
     function moveWidget(elementId) {
-      document.getElementById(elementId).scrollIntoView({
-        behavior: "smooth",
-      });
-
       var removeClass = document.querySelector(".boxEdgeInstWidget");
       if (removeClass.style.removeProperty) {
         removeClass.style.removeProperty("bottom");
@@ -741,6 +711,8 @@ export default class howToDoWizard {
               }
             });
         }
+
+        modal.scrollIntoView({ behavior: "smooth", block: "center" });
       }, 500);
     }
     // checking if the user want navigation
@@ -845,7 +817,7 @@ export default class howToDoWizard {
     if (step + 1 >= li.length) {
       document.getElementById("nextStep").innerHTML = "Done";
     } else {
-      document.getElementById("nextStep").innerHTML = "Next";
+      document.getElementById("nextStep").innerHTML = "Got it";
     }
     giveInstruction(example, eleId);
 
@@ -923,7 +895,7 @@ export default class howToDoWizard {
 
         giveInstruction(example, eleId);
 
-        document.getElementById("nextStep").innerHTML = "Next";
+        document.getElementById("nextStep").innerHTML = "Got it";
         moveWidget(eleId);
       }
     });
@@ -991,7 +963,7 @@ export default class howToDoWizard {
           if (step + 1 >= li.length) {
             document.getElementById("nextStep").innerHTML = "Done";
           } else {
-            document.getElementById("nextStep").innerHTML = "Next";
+            document.getElementById("nextStep").innerHTML = "Got it";
           }
           var instructionText = document.querySelector(".instructionText");
           instructionText.innerHTML = liInst.title;
@@ -1057,7 +1029,7 @@ export default class howToDoWizard {
               if (step + 1 >= li.length) {
                 document.getElementById("nextStep").innerHTML = "Done";
               } else {
-                document.getElementById("nextStep").innerHTML = "Next";
+                document.getElementById("nextStep").innerHTML = "Got it";
               }
               if (
                 getElement.tagName === "INPUT" ||
@@ -1115,7 +1087,7 @@ export default class howToDoWizard {
             if (step + 1 >= li.length) {
               document.getElementById("nextStep").innerHTML = "Done";
             } else {
-              document.getElementById("nextStep").innerHTML = "Next";
+              document.getElementById("nextStep").innerHTML = "Got it";
             }
             if (
               getElement.tagName === "INPUT" ||
