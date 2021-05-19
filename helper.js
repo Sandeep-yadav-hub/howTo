@@ -90,11 +90,10 @@ export const moveWidget = function (elementId, instructionsModal) {
     ) {
       triangleUp.classList.remove("hide");
       triangleLeft.classList.add("hide");
-      triangleRight.classList.add("hide");
       triangleDown.classList.add("hide");
+      triangleRight.classList.add("hide");
       if (imgInput.style.display === "block") {
         imgInput.addEventListener("load",  () => {
-          console.log(windowHight < (getElementHeight + elementPositionTop) + instructionsModal.offsetHeight)
           if (
             windowHight < (getElementHeight + elementPositionTop) + instructionsModal.offsetHeight // but after img load can not be placed below the elment
           ) {
@@ -139,16 +138,11 @@ export const moveWidget = function (elementId, instructionsModal) {
 
       if (imgInput.style.display === "block") {
         // if there is img src as we checked while giving instruction
-        console.log("img")
-        imgInput.addEventListener("loading",()=>{
-          console.log("loading")
-        })
+        
         imgInput.addEventListener("load", () => {
-          console.log("loaded")
           if (
             windowHight < getElementHeight + elementPositionTop + instructionsModal.offsetHeight // but after img load can not be placed below the elment
           ) {
-            console.log("this one img load");
             instructionsModal.style.top = String(  Number(elementPositionTop+70 - instructionsModal.offsetHeight) ) + "px";
             triangleLeft.style.top = "";
             triangleLeft.style.bottom = "30px";
@@ -190,7 +184,6 @@ export const moveWidget = function (elementId, instructionsModal) {
         });
       }
       if(windowHight < getElementHeight + elementPositionTop + instructionsModal.offsetHeight){
-        console.log("big")
         instructionsModal.style.top = String(  Number(elementPositionTop - instructionsModal.offsetHeight+70) ) + "px";
         triangleRight.style.top = "";
         triangleRight.style.bottom = "30px";

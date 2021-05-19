@@ -12,7 +12,7 @@ npm i howtodo
 When you only need to include Howtodo's compiled JS, you can use [jsDelivr](https://www.jsdelivr.com/). 
 
 ```
-<script src="https://cdn.jsdelivr.net/npm/howtodo@1.0.33/wizard.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/howtodo@1.0.34/wizard.min.js"></script>
 ```
 
 ## About this Project

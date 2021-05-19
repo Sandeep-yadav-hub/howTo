@@ -1,6 +1,6 @@
 {
   "name": "howtodo",
-  "version": "1.0.33",
+  "version": "1.0.34",
   "description": " This package will give the ability to add instruction for anything on your Web product ",
   "main": "index.js",
   "scripts": {},
