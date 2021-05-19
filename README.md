@@ -12,11 +12,13 @@ npm i howtodo
 When you only need to include Howtodo's compiled JS, you can use [jsDelivr](https://www.jsdelivr.com/). 
 
 ```
-<script src="https://cdn.jsdelivr.net/npm/howtodo@1.0.30/wizard.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/howtodo@1.0.32/wizard.min.js"></script>
 ```
 
 ## About this Project
-A simple JavaScript libarary (**_howtodo_**) which can give you a power to create the instruction session more fun and easy for all your **_Web And Mobile Products_** .
+With '**_How To Do_**', you can include this library in your system to explain the functioning of your website to your users and customers in an interactive and self explanatory manner.
+
+With '**_How To Do_**', you can include this library in your system to explain the functioning of your website to your users and customers in an interactive and self explanatory manner.
 
 ![previewImg](https://bucket--001.s3.ap-south-1.amazonaws.com/preview.gif)
 
@@ -28,7 +30,7 @@ Just By these simple steps you can show anyone ```"How to do this?"``` Anywhere 
 
 Include the wizard.js file at the bottom of your html file
 ```HTML
-<script src="https://cdn.jsdelivr.net/npm/howtodo@1.0.30/wizard.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/howtodo@1.0.32/wizard.min.js"></script>
 ```
 
 #### JavaScript
@@ -103,7 +105,7 @@ With Text in it
 
 ### Thank You
 
-Contact me
+Contact me if you have any issue.
 
 mobile : ```+91 9506370145``` <br>
 email : ```y.sandeep@outlook.com```
