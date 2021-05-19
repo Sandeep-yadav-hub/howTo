@@ -12,11 +12,11 @@ npm i howtodo
 When you only need to include Howtodo's compiled JS, you can use [jsDelivr](https://www.jsdelivr.com/). 
 
 ```
-<script src="https://cdn.jsdelivr.net/npm/howtodo@1.0.32/wizard.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/howtodo@1.0.33/wizard.min.js"></script>
 ```
 
 ## About this Project
-With '**_How To Do_**', you can include this library in your system to explain the functioning of your website to your users and customers in an interactive and self explanatory manner.
+The library is an advanced tool that also assists you in a simple and time saving onboarding of new members to your company. In the new era of Work from Home Culture, a lot of platforms have emerged to assist your user while they are working to ensure a consistent and hassle free flow, for example Gramarly assist you while typing instantly to point out errors and the tone of your text.
 
 With '**_How To Do_**', you can include this library in your system to explain the functioning of your website to your users and customers in an interactive and self explanatory manner.
 
